@@ -10,5 +10,6 @@ namespace Boggle.Shared.Interfaces
         void AddNewPlayer(Player p);
         void AddNewGame(Game g);
         IEnumerable<Game> GetAllGames();
+        IEnumerable<Player> GetAllPlayers();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Boggle.Shared.DataModels;
+using Boggle.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +12,7 @@ namespace Boggle.Shared.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        private readonly IDataService dataService;
         private List<Game> _gamesList;
         public List<Game> GamesList
         {
@@ -39,13 +41,18 @@ namespace Boggle.Shared.ViewModels
             }
         }
 
-        public MainViewModel()
+        public MainViewModel() : this(new SqliteDataService("Boggle.db")) { }
+
+        public MainViewModel(IDataService dataService)
         {
-            var dataService = new SqliteDataService("Boggle.db");
-            dataService.AddNewPlayer(new Player { Name = "Spongebob" });
-            dataService.AddNewGame(new Game { PlayerId = 1, Score = 10000 });
-            dataService.AddNewGame(new Game { PlayerId = 1, Score = 1423 });
-            dataService.AddNewGame(new Game { PlayerId = 1, Score = 4554 });
+            this.dataService = dataService;
+            this.dataService.AddNewPlayer(new Player { Name = "Spongebob" });
+            this.dataService.AddNewPlayer(new Player { Name = "Patrick" });
+            this.dataService.AddNewPlayer(new Player { Name = "Squidward" });
+            this.dataService.AddNewGame(new Game { PlayerId = 3, Score = 10000 });
+            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 1423 });
+            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 4554 });
+            this.dataService.AddNewGame(new Game { PlayerId = 2, Score = 89743 });
             GamesList = dataService.GetAllGames().ToList();
             Players = dataService.GetAllPlayers().ToList();
         }
