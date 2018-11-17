@@ -11,8 +11,14 @@
         <vm:MainViewModel/>
     </Window.DataContext>
     <Grid>
-        <DataGrid ItemsSource="{Binding GamesList}">
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0"
+                   Text="The Game scores"/>
+        <DataGrid Grid.Row="1"
+                 ItemsSource="{Binding GamesList}">
         </DataGrid> 
     </Grid>
 </Window>

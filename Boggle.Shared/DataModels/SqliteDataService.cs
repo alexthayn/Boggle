@@ -15,8 +15,6 @@ namespace Boggle.Shared.DataModels
             this.dbPath = dbPath ?? throw new ArgumentNullException(nameof(dbPath));
             context = new BoggleDatabaseContext(dbPath);
         }
-
-       
    
         public void AddNewGame(Game g)
         {
@@ -36,6 +34,14 @@ namespace Boggle.Shared.DataModels
             foreach (Game game in context.Games)
                 GamesList.Add(game);
             return GamesList;
+        }
+
+        public IEnumerable<Player> GetAllPlayers()
+        {
+            List<Player> Players = new List<Player>();
+            foreach (Player player in context.Players)
+                Players.Add(player);
+            return Players;
         }
     }
 }
