@@ -32,6 +32,7 @@ namespace Boggle.Shared.Models
         public void NewGame()
         {
             GameBoard.ShakeDice();
+            //I can bind the Timer.Elapsed value to a label on my UI to display the elapsed time
             Timer.Start();
             while(Timer.ElapsedMilliseconds <= 180000)
             {

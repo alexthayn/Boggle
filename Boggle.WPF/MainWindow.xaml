@@ -11,14 +11,30 @@
         <vm:MainViewModel/>
     </Window.DataContext>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0"
-                   Text="The Game scores"/>
-        <DataGrid Grid.Row="1"
-                 ItemsSource="{Binding GamesList}">
-        </DataGrid> 
+        <StackPanel Margin="100">
+            <TextBlock Text="BOGGLE!"
+                       TextAlignment="Center"
+                       FontSize="80"
+                       FontWeight="Light"
+                       Foreground="DodgerBlue"/>
+            <TextBox BorderThickness="5"/>
+            <Button Content="New Game"
+                    Margin="10"
+                    MinHeight="35"
+                    MaxWidth="300"
+                    MinWidth="100"
+                    Background="White"
+                    BorderThickness="4"/>
+            <Button Content="High Scores"
+                    Margin="10"
+                    MinHeight="35"
+                    MaxWidth="300"
+                    MinWidth="100"
+                    Background="White"
+                    BorderThickness="4"/>
+        </StackPanel>
+        <!--<Frame x:Name="Main" 
+               Margin="0,35,0,0"
+               Content="{Binding Page}"/>-->
     </Grid>
 </Window>
