@@ -24,7 +24,7 @@ namespace Boggle.Shared.Models
             Six = six;
         }
 
-        public string RollDie(BoggleDie die)
+        public string RollDie()
         {
             Random r = new Random(System.DateTime.Now.Millisecond);
 
