@@ -7,6 +7,8 @@ namespace Boggle.Shared.Models
     public class GameBoard
     {
         private const int GRIDSIZE = 4;
+        private Random rand = new Random();
+
         private readonly BoggleDie DIE0 = new BoggleDie("R", "I", "F", "O", "B", "X");
         private readonly BoggleDie DIE1 = new BoggleDie("I", "F", "E", "H", "E", "Y");
         private readonly BoggleDie DIE2 = new BoggleDie("D", "E", "N", "O", "W", "S");
@@ -33,5 +35,36 @@ namespace Boggle.Shared.Models
         }
 
         public string[,] GameGrid = new string[GRIDSIZE, GRIDSIZE];
+
+        public void ShakeDice()
+        {
+            //Shake the dice
+            ShuffleDice(GameDice);
+
+            //Populate the grid
+            int dieNum = 0;
+            for(int i = 0; i < GRIDSIZE; i++)
+            {
+                for(int j = 0; j < GRIDSIZE; j++)
+                {
+                    GameGrid[i, j] = GameDice[dieNum].RollDie();
+                    dieNum++;
+                }
+            }
+        }
+
+        //Private function to shuffle the list of dice around
+        private void ShuffleDice(List<BoggleDie> list)
+        {      
+            int n = list.Count;
+            while(n > 1)
+            {
+                n--;
+                int k = rand.Next(n + 1);
+                var tempShuffle = list[k];
+                list[k] = list[n];
+                list[n] = tempShuffle;
+            }
+        }
     }
 }
