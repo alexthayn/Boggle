@@ -11,13 +11,21 @@
         <vm:MainViewModel/>
     </Window.DataContext>
     <Grid>
-        <StackPanel Margin="100">
+        <StackPanel Margin="100,75,100,0">            
             <TextBlock Text="BOGGLE!"
                        TextAlignment="Center"
                        FontSize="80"
                        FontWeight="Light"
                        Foreground="DodgerBlue"/>
-            <TextBox BorderThickness="5"/>
+            <Label Content="Username:"
+                   MaxWidth="300"
+                   FontSize="14"/>
+            <TextBox BorderThickness="3"
+                     MaxWidth="300"
+                     MinHeight="25"
+                     Margin="0,0,0,10"
+                     VerticalAlignment="Center"
+                     Text="{Binding TheGame.Username}"/>
             <Button Content="New Game"
                     Margin="10"
                     MinHeight="35"
