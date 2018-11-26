@@ -23,5 +23,22 @@ namespace Boggle.Shared.Models
             Five = five;
             Six = six;
         }
+
+        public string RollDie(BoggleDie die)
+        {
+            Random r = new Random(System.DateTime.Now.Millisecond);
+
+            //Simulate rolling the die
+            switch (r.Next(1, 6))
+            {
+                case 1: return One;
+                case 2: return Two;
+                case 3: return Three;
+                case 4: return Four;
+                case 5: return Five;
+                case 6: return Six;
+                default: throw new ArgumentOutOfRangeException("Invalid die roll.");
+            }
+        }
     }
 }
