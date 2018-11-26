@@ -20,12 +20,16 @@
             <Label Content="Username:"
                    MaxWidth="300"
                    FontSize="14"/>
-            <TextBox BorderThickness="3"
-                     MaxWidth="300"
-                     MinHeight="25"
-                     Margin="0,0,0,10"
-                     VerticalAlignment="Center"
-                     Text="{Binding TheGame.Username}"/>
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,10"
+                        HorizontalAlignment="Center">
+                <TextBox BorderThickness="3"
+                         MinWidth="250"
+                         MinHeight="25"                         
+                         VerticalAlignment="Center"
+                         Text="{Binding Username}"/>
+                <Button />
+            </StackPanel>
             <Button Content="New Game"
                     Margin="10"
                     MinHeight="35"

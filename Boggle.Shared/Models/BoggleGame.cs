@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Boggle.Shared.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace Boggle.Shared.Models
 {
-    public class BoggleGame : INotifyPropertyChanged
+    public class BoggleGame : INotifyPropertyChanged, IBoggleGame
     {
         //Overall game score updated with each valid word
         private int _score;
@@ -65,6 +66,16 @@ namespace Boggle.Shared.Models
             {
                 //play game
             }
+        }
+
+        public void SetUsername(string username)
+        {
+            Username = username;
+        }
+
+        public int GetScore()
+        {
+            return Score;
         }
 
         #region INotifyPropertyChanged Implementation

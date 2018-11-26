@@ -13,20 +13,21 @@ namespace Boggle.Shared.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        private BoggleGame _theGame;
-        public BoggleGame TheGame
+        private readonly IBoggleGame TheGame;
+        private readonly IDataService dataService;
+        private string _username;
+        public string Username
         {
             get
             {
-                return _theGame;
+                return _username;
             }
             set
             {
-                _theGame = value;
-                OnPropertyChanged(nameof(TheGame));
+                _username = value;
+                OnPropertyChanged(nameof(Username));
             }
         }
-        private readonly IDataService dataService;
         private List<Game> _gamesList;
         public List<Game> GamesList
         {
@@ -55,14 +56,13 @@ namespace Boggle.Shared.ViewModels
             }
         }
 
-        public MainViewModel() : this(new SqliteDataService("Boggle.db")) { }
+        public MainViewModel() : this(new SqliteDataService("Boggle.db"), new BoggleGame()) { }
 
-        public MainViewModel(IDataService dataService)
+        public MainViewModel(IDataService dataService, IBoggleGame boggleGame)
         {
-            TheGame = new BoggleGame
-            {
-                Username = GetRandomUsername()
-            };
+            TheGame = boggleGame;
+            Username = GetRandomUsername();
+            TheGame.SetUsername(Username);
             this.dataService = dataService;
             this.dataService.AddNewPlayer(new Player { Name = "Spongebob" });
             this.dataService.AddNewPlayer(new Player { Name = "Patrick" });
