@@ -10,6 +10,10 @@
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <Image x:Key="RefreshIcon" Source="..\Boggle.Shared\Images\refresh.png"
+               MaxWidth="20"/>
+    </Window.Resources>
     <Grid>
         <StackPanel Margin="100,75,100,0">            
             <TextBlock Text="BOGGLE!"
@@ -24,11 +28,14 @@
                         Margin="0,0,0,10"
                         HorizontalAlignment="Center">
                 <TextBox BorderThickness="3"
-                         MinWidth="250"
+                         MinWidth="275"
                          MinHeight="25"                         
                          VerticalAlignment="Center"
                          Text="{Binding Username}"/>
-                <Button />
+                <Button Content="{StaticResource RefreshIcon}"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Margin="1"/>
             </StackPanel>
             <Button Content="New Game"
                     Margin="10"
