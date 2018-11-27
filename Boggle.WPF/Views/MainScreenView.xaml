@@ -29,6 +29,7 @@
                          VerticalAlignment="Center"
                          Text="{Binding Username}"/>
                 <Button Content="{StaticResource RefreshIcon}"
+                        Command="{Binding RefreshUsernameCommand}"
                         Background="Transparent"
                         BorderThickness="0"
                         Margin="1"/>

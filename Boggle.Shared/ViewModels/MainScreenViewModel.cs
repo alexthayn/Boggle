@@ -1,19 +1,26 @@
 ﻿using Boggle.Shared.DataModels;
 using Boggle.Shared.Interfaces;
 using Boggle.Shared.Models;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace Boggle.Shared.ViewModels
 {
-    public class MainScreenViewModel : INotifyPropertyChanged
+    public class MainScreenViewModel : ViewModelBase
     {
         private readonly IBoggleGame TheGame;
         private readonly IDataService dataService;
+
+        private RelayCommand _refreshUsernameCommand;
+        public RelayCommand RefreshUsernameCommand => _refreshUsernameCommand ?? (_refreshUsernameCommand = new RelayCommand(
+            () =>
+            {
+                Username = GetRandomUsername();
+            }));
         private string _username;
         public string Username
         {
@@ -23,10 +30,10 @@ namespace Boggle.Shared.ViewModels
             }
             set
             {
-                _username = value;
-                OnPropertyChanged(nameof(Username));
+                Set(ref _username, value);
             }
         }
+
         private List<Game> _gamesList;
         public List<Game> GamesList
         {
@@ -36,8 +43,7 @@ namespace Boggle.Shared.ViewModels
             }
             set
             {
-                _gamesList = value;
-                OnPropertyChanged(nameof(GamesList));
+                Set(ref _gamesList, value);
             }
         }
 
@@ -50,8 +56,7 @@ namespace Boggle.Shared.ViewModels
             }
             set
             {
-                _players = value;
-                OnPropertyChanged(nameof(Players));
+                Set(ref _players, value);
             }
         }
 
@@ -61,20 +66,20 @@ namespace Boggle.Shared.ViewModels
         {
             TheGame = boggleGame;
             Username = GetRandomUsername();
-            TheGame.SetUsername(Username);
-            this.dataService = dataService;
-            this.dataService.AddNewPlayer(new Player { Name = "Spongebob" });
-            this.dataService.AddNewPlayer(new Player { Name = "Patrick" });
-            this.dataService.AddNewPlayer(new Player { Name = "Squidward" });
-            this.dataService.AddNewGame(new Game { PlayerId = 3, Score = 10000 });
-            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 1423 });
-            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 4554 });
-            this.dataService.AddNewGame(new Game { PlayerId = 2, Score = 89743 });
-            GamesList = dataService.GetAllGames().ToList();
-            Players = dataService.GetAllPlayers().ToList();
+
+            //this.dataService = dataService;
+            //this.dataService.AddNewPlayer(new Player { Name = "Spongebob" });
+            //this.dataService.AddNewPlayer(new Player { Name = "Patrick" });
+            //this.dataService.AddNewPlayer(new Player { Name = "Squidward" });
+            //this.dataService.AddNewGame(new Game { PlayerId = 3, Score = 10000 });
+            //this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 1423 });
+            //this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 4554 });
+            //this.dataService.AddNewGame(new Game { PlayerId = 2, Score = 89743 });
+            //GamesList = dataService.GetAllGames().ToList();
+            //Players = dataService.GetAllPlayers().ToList();
         }
 
-        //Just a fun method to set the username randomly if the user doesn't enter one
+        //Just a method to set the username randomly if the user doesn't enter one
         public string GetRandomUsername()
         {
             var usernames = new List<string> { "Skedaddle_Snollygoster", "Batrachomyomachy_Folderol", "Crudivore_Doozy", "Widdershins_Flummox", "Batrachomyomachy_Hootenanny", "Flibbertigibbet_Abibliophobia", "Yahoo_Callipygian", "Malarkey_Cockamamie", "Formication_Gardyloo!", "Troglodyte_Snool",
@@ -84,13 +89,5 @@ namespace Boggle.Shared.ViewModels
             int usernameIndex = rand.Next(0, usernames.Count);
             return usernames[usernameIndex];
         }
-        #region INotifyPropertyChanged Implementation
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
-
     }
 }

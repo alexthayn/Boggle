@@ -1,4 +1,5 @@
 ﻿using Boggle.Shared.Interfaces;
+using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace Boggle.Shared.Models
 {
-    public class BoggleGame : INotifyPropertyChanged, IBoggleGame
+    public class BoggleGame : ViewModelBase, IBoggleGame
     {
         //Overall game score updated with each valid word
         private int _score;
@@ -20,10 +21,10 @@ namespace Boggle.Shared.Models
             }
             set
             {
-                _score = value;
-                OnPropertyChanged(nameof(Score));
+                Set(ref _score, value);
             }
         }
+
         private string _username;
         public string Username
         {
@@ -33,8 +34,7 @@ namespace Boggle.Shared.Models
             }
             set
             {
-                _username = value;
-                OnPropertyChanged(nameof(Username));
+                Set(ref _username, value);
             }
         }
         public GameBoard GameBoard;
@@ -57,8 +57,9 @@ namespace Boggle.Shared.Models
             }            
         }
 
-        public void NewGame()
+        public void NewGame(string username)
         {
+            Username = username;
             GameBoard.ShakeDice();
             //I can bind the Timer.Elapsed value to a label on my UI to display the elapsed time
             Timer.Start();
@@ -68,22 +69,9 @@ namespace Boggle.Shared.Models
             }
         }
 
-        public void SetUsername(string username)
-        {
-            Username = username;
-        }
-
         public int GetScore()
         {
             return Score;
         }
-
-        #region INotifyPropertyChanged Implementation
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
     }
 }

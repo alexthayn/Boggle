@@ -7,15 +7,14 @@ using System.Text;
 namespace UnitTests
 {
     [TestFixture]
-    public class MainViewModelTests
+    public class MainScreenViewModelTests
     {
-        public MainViewModel vm;
+        public MainScreenViewModel vm;
         
         [SetUp]
         public void Setup()
         {
-            vm = new MainViewModel();
-
+            vm = new MainScreenViewModel();
         }
     }
 }
