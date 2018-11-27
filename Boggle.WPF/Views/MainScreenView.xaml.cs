@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Boggle.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for HighScores.xaml
+    /// Interaction logic for MainScreenView.xaml
     /// </summary>
-    public partial class HighScores : Page
+    public partial class MainScreenView : UserControl
     {
-        public HighScores()
+        public MainScreenView()
         {
             InitializeComponent();
         }
