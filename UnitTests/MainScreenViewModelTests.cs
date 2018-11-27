@@ -14,7 +14,15 @@ namespace UnitTests
         [SetUp]
         public void Setup()
         {
-            vm = new MainScreenViewModel();
+            vm = new MainScreenViewModel(new MainViewModel());
+        }
+
+        [Test]
+        public void RefreshUsernameCommandTest()
+        {
+            vm.Username = "Spongebob";
+            vm.RefreshUsernameCommand.Execute(null);
+            Assert.AreNotEqual("Spongebob", vm.Username);
         }
     }
 }

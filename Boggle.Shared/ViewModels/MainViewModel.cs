@@ -20,10 +20,13 @@ namespace Boggle.Shared.ViewModels
         private MainScreenViewModel _mainScreenViewModel;
         public MainScreenViewModel MainScreenViewModel { get => _mainScreenViewModel; set => Set(ref _mainScreenViewModel, value); }
 
+        private HowToPlayViewModel _howToPlayViewModel;
+        public HowToPlayViewModel HowToPlayViewModel { get => _howToPlayViewModel; set => Set(ref _howToPlayViewModel, value); }
+
         public MainViewModel()
         {
-            MainScreenViewModel = new MainScreenViewModel();
-
+            MainScreenViewModel = new MainScreenViewModel(this);
+            HowToPlayViewModel = new HowToPlayViewModel(this);
             ChildViewModel = MainScreenViewModel;
         }
     }

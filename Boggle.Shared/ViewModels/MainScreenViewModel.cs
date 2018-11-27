@@ -14,6 +14,7 @@ namespace Boggle.Shared.ViewModels
     {
         private readonly IBoggleGame TheGame;
         private readonly IDataService dataService;
+        private readonly MainViewModel mainView;
 
         private RelayCommand _refreshUsernameCommand;
         public RelayCommand RefreshUsernameCommand => _refreshUsernameCommand ?? (_refreshUsernameCommand = new RelayCommand(
@@ -21,6 +22,14 @@ namespace Boggle.Shared.ViewModels
             {
                 Username = GetRandomUsername();
             }));
+
+        private RelayCommand _howToPlayCommand;
+        public RelayCommand HowToPlayCommand => _howToPlayCommand ?? (_howToPlayCommand = new RelayCommand(
+            () =>
+            {
+                mainView.ChildViewModel = mainView.HowToPlayViewModel;
+            }));
+
         private string _username;
         public string Username
         {
@@ -60,8 +69,10 @@ namespace Boggle.Shared.ViewModels
             }
         }
 
-        public MainScreenViewModel() : this(new SqliteDataService("Boggle.db"), new BoggleGame()) { }
-
+        public MainScreenViewModel(MainViewModel mainViewModel) : this(new SqliteDataService("Boggle.db"), new BoggleGame())
+        {
+            mainView = mainViewModel;
+        }
         public MainScreenViewModel(IDataService dataService, IBoggleGame boggleGame)
         {
             TheGame = boggleGame;
