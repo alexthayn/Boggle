@@ -4,9 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:Boggle.Shared.ViewModels;assembly=Boggle.Shared"
+        xmlns:views="clr-namespace:Boggle.WPF.Views" 
         xmlns:local="clr-namespace:Boggle.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-
-
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <ContentControl Content="{Binding ChildViewModel}">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding}">
+                        <ContentControl.Resources>
+                            <DataTemplate DataType="{x:Type vm:MainScreenViewModel}">
+                                <views:MainScreenView/>
+                            </DataTemplate>
+                        </ContentControl.Resources>
+                    </ContentControl>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>        
+    </Grid>
 </Window>
