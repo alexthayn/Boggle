@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace Boggle.Shared.ViewModels
@@ -99,16 +100,16 @@ namespace Boggle.Shared.ViewModels
             TheGame = boggleGame;
             Username = GetRandomUsername();
 
-            //this.dataService = dataService;
-            //this.dataService.AddNewPlayer(new Player { Name = "Spongebob" });
-            //this.dataService.AddNewPlayer(new Player { Name = "Patrick" });
-            //this.dataService.AddNewPlayer(new Player { Name = "Squidward" });
-            //this.dataService.AddNewGame(new Game { PlayerId = 3, Score = 10000 });
-            //this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 1423 });
-            //this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 4554 });
-            //this.dataService.AddNewGame(new Game { PlayerId = 2, Score = 89743 });
-            //GamesList = dataService.GetAllGames().ToList();
-            //Players = dataService.GetAllPlayers().ToList();
+            this.dataService = dataService;
+            this.dataService.AddNewPlayer(new Player { Name = "Spongebob" });
+            this.dataService.AddNewPlayer(new Player { Name = "Patrick" });
+            this.dataService.AddNewPlayer(new Player { Name = "Squidward" });
+            this.dataService.AddNewGame(new Game { PlayerId = 3, Score = 10000 });
+            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 1423 });
+            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 4554 });
+            this.dataService.AddNewGame(new Game { PlayerId = 2, Score = 89743 });
+            GamesList = dataService.GetAllGames().ToList();
+            Players = dataService.GetAllPlayers().ToList();
         }
 
         //Just a method to set the username randomly if the user doesn't enter one
