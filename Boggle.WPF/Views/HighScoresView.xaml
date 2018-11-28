@@ -19,7 +19,7 @@
                 MaxHeight="35" 
                 MaxWidth="150"
                 Margin="5"/>
-        <ScrollViewer Grid.Row="3"
+        <ScrollViewer Grid.Column="1"
                           Background="#d1e8ff"
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled">

@@ -35,6 +35,7 @@ namespace Boggle.Shared.ViewModels
         public MainViewModel()
         {
             TheGame = new BoggleGame();
+            this.dataService = new SqliteDataService("Boggle.db");
             MainScreenViewModel = new MainScreenViewModel(this, TheGame, dataService);
             HowToPlayViewModel = new HowToPlayViewModel(this);
             HighScoresViewModel = new HighScoresViewModel(this, dataService);
