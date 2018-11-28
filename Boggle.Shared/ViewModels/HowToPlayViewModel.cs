@@ -1,11 +1,12 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Boggle.Shared.ViewModels
 {
-    public class HowToPlayViewModel
+    public class HowToPlayViewModel : ViewModelBase
     {
         private readonly MainViewModel mainView;
 

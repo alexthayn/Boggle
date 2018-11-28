@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Boggle.WPF.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800"
+             FontWeight="Light"
+             FontSize="14">
     <DockPanel>
         <Menu DockPanel.Dock="Top"
               Background="White">
@@ -23,7 +25,100 @@
             </MenuItem>
         </Menu>
         <Grid>
-            <Label>This is the game view</Label>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!--Timer Display-->
+            <StackPanel Orientation="Horizontal"
+                        Margin="3">
+                <Label Content="Time Left: "/>
+                <Label Content="{Binding TimeLeft}"/>
+            </StackPanel>
+            
+            <!--Word Count Display-->
+            <StackPanel Orientation="Horizontal"
+                        Margin="3"
+                        Grid.Row="1">
+                <Label Content="Word Count: "
+                       />
+                <Label Content="{Binding WordCount}"/>
+            </StackPanel>
+
+            <!--Score Display-->
+            <DockPanel Grid.Column="2"
+                       Grid.RowSpan="2"
+                       VerticalAlignment="Center">
+                <Label Content="{Binding Score}"
+                       FontSize="24"
+                       Width="75"
+                       DockPanel.Dock="Right"/>
+                <Label Content="Score: "
+                       FontSize="24"
+                       DockPanel.Dock="Right"
+                       Width="75"/>
+                <Label Content="BOGGLE!"
+                       HorizontalAlignment="Center"
+                       FontSize="40"
+                       Foreground="DodgerBlue"/>
+            </DockPanel>
+
+            <!--Previously Guessed Words-->
+            <ScrollViewer Grid.Row="3"
+                          Background="#d1e8ff"
+                          Margin="10"
+                          VerticalScrollBarVisibility="Hidden"
+                          HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl ItemsSource="{Binding ListOfGuesses}"
+                              BorderBrush="DodgerBlue"
+                              BorderThickness="2">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,2"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            
+            <!--Game Board-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="{Binding Grid00}"/>
+            </Grid>
+            
+            <!--User input-->
+            <Label Content="Enter Guess: "
+                   FontSize="16"
+                   Margin="50,0"
+                   Grid.Row="4"/>
+            <TextBox Grid.Row="4" 
+                     FontSize="16"
+                     Margin="10,0"
+                     VerticalAlignment="Center"
+                     Grid.Column="1"/>
         </Grid>
     </DockPanel>
 </UserControl>

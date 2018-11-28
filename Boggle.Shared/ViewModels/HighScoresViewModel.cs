@@ -1,9 +1,10 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 
 namespace Boggle.Shared.ViewModels
 {
-    public class HighScoresViewModel
+    public class HighScoresViewModel : ViewModelBase
     {
         private readonly MainViewModel mainView;
 

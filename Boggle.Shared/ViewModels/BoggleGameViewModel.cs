@@ -1,15 +1,26 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
+using System.Collections.Generic;
 
 namespace Boggle.Shared.ViewModels
 {
-    public class BoggleGameViewModel
+    public class BoggleGameViewModel : ViewModelBase
     {
         private readonly MainViewModel mainView;
+
+        public List<string> _listOfGuesses;
+        public List<string> ListOfGuesses
+        {
+            get => _listOfGuesses;
+            set => Set(ref _listOfGuesses, value);
+        }
 
         public BoggleGameViewModel(MainViewModel mainViewModel)
         {
             mainView = mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
+            //Dummy data for testing UI remove later*******************************************************************
+            ListOfGuesses = new List<string>() { "hello", "goodbye" };
         }
 
         private RelayCommand _backToMain;
