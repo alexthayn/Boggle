@@ -12,6 +12,22 @@
         <Image x:Key="RefreshIcon" Source="..\Images\refresh.png"
                MaxWidth="20"/>
     </UserControl.Resources>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top"
+              Background="White">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New Game" 
+                          Command="{Binding NewGameCommand}"/>
+                <MenuItem Header="_View High Scores" 
+                          Command="{Binding ViewScoreCommand}"/>
+                <MenuItem Header="_Exit Program" 
+                          Command="{Binding ExitProgramCommand}"/>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_How To Play"
+                          Command="{Binding HowToPlayCommand}"/>
+            </MenuItem>
+        </Menu>
     <Grid>
         <StackPanel Margin="100,50,100,50">
             <TextBlock Text="BOGGLE!"
@@ -40,6 +56,7 @@
             </StackPanel>
 
             <Button Content="New Game"
+                    Command="{Binding  NewGameCommand}"
                     Margin="10,30,10,10"
                     MinHeight="35"
                     MaxWidth="300"
@@ -48,6 +65,7 @@
                     BorderThickness="4"
                     BorderBrush="DodgerBlue"/>
             <Button Content="High Scores"
+                    Command="{Binding HighScoresCommand}"
                     Margin="10"
                     MinHeight="35"
                     MaxWidth="300"
@@ -55,7 +73,7 @@
                     Background="White"
                     BorderBrush="DodgerBlue"
                     BorderThickness="4"/>
-            <Button Content="How To Play"
+                <Button Content="How To Play"
                     Command="{Binding HowToPlayCommand}"
                     Margin="10"
                     MinHeight="35"
@@ -64,9 +82,10 @@
                     Background="White"
                     BorderBrush="DodgerBlue"
                     BorderThickness="4"/>
-        </StackPanel>
+            </StackPanel>
         <!--<Frame x:Name="Main" 
                Margin="0,35,0,0"
                Content="{Binding Page}"/>-->
     </Grid>
+    </DockPanel>
 </UserControl>

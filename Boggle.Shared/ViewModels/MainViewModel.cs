@@ -23,6 +23,12 @@ namespace Boggle.Shared.ViewModels
         private HowToPlayViewModel _howToPlayViewModel;
         public HowToPlayViewModel HowToPlayViewModel { get => _howToPlayViewModel; set => Set(ref _howToPlayViewModel, value); }
 
+        private HighScoresViewModel _highScoresViewModel;
+        public HighScoresViewModel HighScoresViewModel { get => _highScoresViewModel; set => Set(ref _highScoresViewModel, value); }
+
+        private BoggleGameViewModel _boggleGameViewModel;
+        public BoggleGameViewModel BoggleGameViewModel { get => _boggleGameViewModel; set => Set(ref _boggleGameViewModel, value); }
+
         public MainViewModel()
         {
             MainScreenViewModel = new MainScreenViewModel(this);

@@ -30,6 +30,27 @@ namespace Boggle.Shared.ViewModels
                 mainView.ChildViewModel = mainView.HowToPlayViewModel;
             }));
 
+        private RelayCommand _exitProgramCommand;
+        public RelayCommand ExitProgramCommand => _exitProgramCommand ?? (_exitProgramCommand = new RelayCommand(
+            () =>
+            {
+                Environment.Exit(0);
+            }));
+
+        private RelayCommand _highScoresCommand;
+        public RelayCommand HighScoresCommand => _exitProgramCommand ?? (_highScoresCommand = new RelayCommand(
+            () =>
+            {
+                mainView.ChildViewModel = mainView.HighScoresViewModel;
+            }));
+
+        private RelayCommand _newGameCommand;
+        public RelayCommand NewGameCommand => _newGameCommand ?? (_newGameCommand = new RelayCommand(
+            () =>
+            {
+                mainView.ChildViewModel = mainView.BoggleGameViewModel;
+            }));
+
         private string _username;
         public string Username
         {

@@ -158,6 +158,12 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="Views\BoggleGameView.xaml.cs">
+      <DependentUpon>BoggleGameView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HighScoresView.xaml.cs">
+      <DependentUpon>HighScoresView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HowToPlayView.xaml.cs">
       <DependentUpon>HowToPlayView.xaml</DependentUpon>
     </Compile>
@@ -176,6 +182,12 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\BoggleGameView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HighScoresView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HowToPlayView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

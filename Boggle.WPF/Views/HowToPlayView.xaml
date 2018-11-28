@@ -23,7 +23,8 @@
                 BorderThickness="0"
                 VerticalAlignment="Top"
                 MaxHeight="35" 
-                MaxWidth="150"/>
+                MaxWidth="150"
+                Margin="5"/>
         <ScrollViewer Grid.Column="1"
                       Margin="2"
                       HorizontalScrollBarVisibility="Auto">

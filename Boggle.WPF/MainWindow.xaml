@@ -11,6 +11,7 @@
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
+    
     <Grid>
         <ContentControl Content="{Binding ChildViewModel}">
             <ContentControl.ContentTemplate>
@@ -22,6 +23,12 @@
                             </DataTemplate>
                             <DataTemplate DataType="{x:Type vm:HowToPlayViewModel}">
                                 <views:HowToPlayView/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type vm:BoggleGameViewModel}">
+                                <views:BoggleGameView/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type vm:HighScoresViewModel}">
+                                <views:HighScoresView/>
                             </DataTemplate>
                         </ContentControl.Resources>
                     </ContentControl>
