@@ -19,8 +19,8 @@
                 <MenuItem Header="_New Game" 
                           Command="{Binding NewGameCommand}"/>
                 <MenuItem Header="_View High Scores" 
-                          Command="{Binding ViewScoreCommand}"/>
-                <MenuItem Header="_Exit Program" 
+                          Command="{Binding HighScoresCommand}"/>
+                <MenuItem Header="E_xit Application" 
                           Command="{Binding ExitProgramCommand}"/>
             </MenuItem>
             <MenuItem Header="_Help">

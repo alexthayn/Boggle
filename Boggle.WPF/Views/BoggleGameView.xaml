@@ -6,7 +6,24 @@
              xmlns:local="clr-namespace:Boggle.WPF.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Label>This is the game view</Label>
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top"
+              Background="White">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New Game" 
+                          Command="{Binding NewGameCommand}"/>
+                <MenuItem Header="_End Game" 
+                          Command="{Binding EndGameCommand}"/>
+                <MenuItem Header="E_xit Application" 
+                          Command="{Binding ExitProgramCommand}"/>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_How To Play"
+                          Command="{Binding HowToPlayCommand}"/>
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Label>This is the game view</Label>
+        </Grid>
+    </DockPanel>
 </UserControl>
