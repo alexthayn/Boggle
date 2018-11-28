@@ -1,4 +1,6 @@
-﻿using Boggle.Shared.ViewModels;
+﻿using Boggle.Shared.Interfaces;
+using Boggle.Shared.ViewModels;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -14,7 +16,7 @@ namespace UnitTests
         [SetUp]
         public void Setup()
         {
-            vm = new MainScreenViewModel(new MainViewModel());
+            vm = new MainScreenViewModel(new MainViewModel(), new Mock<IBoggleGame>().Object, new Mock<IDataService>().Object);
         }
 
         [Test]

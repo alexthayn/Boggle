@@ -19,9 +19,26 @@
                 MaxHeight="35" 
                 MaxWidth="150"
                 Margin="5"/>
-        <ScrollViewer Grid.Column="1"
-                      Margin="2"
-                      HorizontalScrollBarVisibility="Auto">            
+        <ScrollViewer Grid.Row="3"
+                          Background="#d1e8ff"
+                          VerticalScrollBarVisibility="Hidden"
+                          HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl ItemsSource="{Binding ListOfScores}"
+                              BorderBrush="DodgerBlue"
+                              BorderThickness="2">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Username}"
+                                           HorizontalAlignment="Center"
+                                           Margin="0,2"/>
+                            <TextBlock Text="{Binding Score}"
+                                           HorizontalAlignment="Center"
+                                           Margin="0,2"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </ScrollViewer>
     </Grid>
 </UserControl>

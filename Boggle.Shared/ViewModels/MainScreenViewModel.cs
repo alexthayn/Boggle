@@ -14,8 +14,8 @@ namespace Boggle.Shared.ViewModels
     public class MainScreenViewModel : ViewModelBase
     {
         private readonly IBoggleGame TheGame;
-        private readonly IDataService dataService;
         private readonly MainViewModel mainView;
+        private readonly IDataService dataService;
 
         private RelayCommand _refreshUsernameCommand;
         public RelayCommand RefreshUsernameCommand => _refreshUsernameCommand ?? (_refreshUsernameCommand = new RelayCommand(
@@ -91,12 +91,9 @@ namespace Boggle.Shared.ViewModels
             }
         }
 
-        public MainScreenViewModel(MainViewModel mainViewModel) : this(new SqliteDataService("Boggle.db"), new BoggleGame())
+        public MainScreenViewModel(MainViewModel mainViewModel, IBoggleGame boggleGame, IDataService dataService)
         {
             mainView = mainViewModel;
-        }
-        public MainScreenViewModel(IDataService dataService, IBoggleGame boggleGame)
-        {
             TheGame = boggleGame;
             Username = GetRandomUsername();
 

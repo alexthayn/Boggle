@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Boggle.Shared.Interfaces;
+using Boggle.Shared.Models;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,8 @@ namespace Boggle.Shared.ViewModels
     public class BoggleGameViewModel : ViewModelBase
     {
         private readonly MainViewModel mainView;
+        private readonly IDataService dataService;
+
 
         public List<string> _listOfGuesses;
         public List<string> ListOfGuesses
@@ -16,11 +20,18 @@ namespace Boggle.Shared.ViewModels
             set => Set(ref _listOfGuesses, value);
         }
 
-        public BoggleGameViewModel(MainViewModel mainViewModel)
+        public BoggleGameViewModel(MainViewModel mainViewModel, BoggleGame boggleGame, IDataService dataService)
         {
             mainView = mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
+            this.dataService = dataService;
             //Dummy data for testing UI remove later*******************************************************************
-            ListOfGuesses = new List<string>() { "hello", "goodbye" };
+            ListOfGuesses = new List<string>() { "hello", "goodbye", "garden","end","begun","area","bear","thick",
+                                                    "attention","swept","planned","evidence","salt","liquid",
+                                                    "unit","climate","war","pan","twelve","shine",
+                                                    "out","again","arrangement","believed","down","energy",
+                                                    "family","felt","pen","feet","grass","bone",
+                                                    "trouble","too","same","wolf","grass","book",
+                                                    "unit","fuel","flag","health","though","heat" };
         }
 
         private RelayCommand _backToMain;
