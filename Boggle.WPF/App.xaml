@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:Boggle.WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Image x:Key="Back" 
+               Source="..\Images\back.png"
+               MaxWidth="35"/>
     </Application.Resources>
 </Application>

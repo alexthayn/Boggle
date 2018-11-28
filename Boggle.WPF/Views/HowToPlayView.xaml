@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="Boggle.WPF.Views.HowToPlayView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Boggle.WPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             FontSize="16">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button Content="{StaticResource Back}" 
+                Command="{Binding BackToMain}"
+                Background="Transparent"
+                BorderThickness="0"
+                VerticalAlignment="Top"
+                MaxHeight="35" 
+                MaxWidth="150"
+                Margin="5"/>
+        <ScrollViewer Grid.Column="1"
+                      Margin="2"
+                      HorizontalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Text="How To Play Boggle"
+                           FontSize="36"
+                           Margin="10"
+                           HorizontalAlignment="Center"
+                           FontWeight="Light"/>
+                <TextBlock TextWrapping="Wrap"
+                           MaxWidth="700">
+                    <Bold>Game Rules</Bold>
+                    <LineBreak/>
+                    The Boggle game consists of 16 6-sided dice, each side containing a letter. 
+                    The dice are shuffled and arranged onto a 4x4 grid where players are given 3 
+                    minutes to find as many words as possible by stringing together adjacent letters 
+                    from the top face of each die. Words may be 3 letters or longer and a die cannot 
+                    be used more than once in the formation of a word. Scoring is based on the length
+                    of the word.                
+                    <LineBreak/>
+                    <LineBreak/>
+                    <Bold>Strategy Hints And Scoring</Bold>
+                    <LineBreak/>
+                    The scoring is as follows:
+                    <LineBreak/>
+                        Fewer than 3 Letters: no score <LineBreak/>
+                        - 3 Letters: 1 point<LineBreak/>
+                        - 4 Letters: 1 point<LineBreak/>
+                        - 5 Letters: 2 points<LineBreak/>
+                        - 6 Letters: 3 points<LineBreak/>
+                        - 7 Letters: 4 points<LineBreak/>
+                        - 8 or More Letters: 11 points
+                    <LineBreak/>
+                    <LineBreak/>
+                    Whilst looking for as many words as possible is a good strategy, it is worth bearing 
+                    in mind that longer words score more highly, so one 5-letter word is worth two 4-letter words.
+                
+                    <LineBreak/>
+                    <LineBreak/>
+                    Note: Although the 'Qu' cube occupies a single space in the grid, it counts as two letters for 
+                    the purpose of scoring. Full credit is awarded for both the singular and plural forms of a noun 
+                    provided you list them as separate words, so cat and cats each score a point. The same is true 
+                    for all other derived forms (e.g. chew, chews, chewed, etc.).
+                    <LineBreak/>
+                    <LineBreak/>
+                    If a word appears more than once in the grid, it may not be counted twice. Also, multiple meanings 
+                    of the same word do not earn multiple credit.
+                    <LineBreak/>
+                    <LineBreak/>
+                    Any dictionary word is allowed. As in most word games, you will not receive credit for proper names, 
+                    abbreviations, contractions, hyphenated words, or foreign words that are not in an English dictionary. 
+                    You will be penalised 1 point for each guess you make that is not recognised as a valid word.
+                    <LineBreak/>
+                    <LineBreak/>
+                    Words within other words are permissible. This can be a valuable fact to remember, for if you spot the 
+                    word part, you can also write down par and art. In this case, it is also a word in reverse: trap.
+                    <LineBreak/>
+                    <LineBreak/>
+                    You will not be penalised for submitting the same word twice, but doing so will not increase your score. 
+                    This may be helpful if you do not remember if you have already found a particular word; it is probably 
+                    faster to type it again than to check your list.
+                    <LineBreak/>
+                    <LineBreak/>
+                    A good knowledge of anagrams will help. If you notice the letters S, T, O, and P arranged in a 2x2 square, 
+                    you will be able to write not only stop but also opts, tops, spot, post, and pots, scoring a total of 6 points.                
+                </TextBlock>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

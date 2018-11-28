@@ -6,9 +6,8 @@ namespace Boggle.Shared.Interfaces
 {
     public interface IBoggleGame
     {
-        void SetUsername(string username);
         int GetScore();
-        void NewGame();
+        void NewGame(string username);
         int CalculateWordScore(string word);
     }
 }
