@@ -21,16 +21,15 @@
                 MaxWidth="150"
                 Margin="5"/>
         <ScrollViewer Grid.Column="1"
-                      Margin="2"
                       HorizontalScrollBarVisibility="Auto">
-            <StackPanel>
+            <StackPanel Margin="10">
                 <TextBlock Text="How To Play Boggle"
                            FontSize="36"
                            Margin="10"
                            HorizontalAlignment="Center"
                            FontWeight="Light"/>
                 <TextBlock TextWrapping="Wrap"
-                           MaxWidth="700">
+                           MaxWidth="650">
                     <Bold>Game Rules</Bold>
                     <LineBreak/>
                     The Boggle game consists of 16 6-sided dice, each side containing a letter. 

@@ -71,6 +71,6 @@ namespace UnitTests
         {
             int scoreReturned = BoggleGame.CalculateWordScore("dictionary");
             Assert.AreEqual(11, scoreReturned);
-        }
+        }        
     }
 }
