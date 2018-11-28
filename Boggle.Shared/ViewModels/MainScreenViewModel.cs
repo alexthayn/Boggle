@@ -38,7 +38,7 @@ namespace Boggle.Shared.ViewModels
             }));
 
         private RelayCommand _highScoresCommand;
-        public RelayCommand HighScoresCommand => _exitProgramCommand ?? (_highScoresCommand = new RelayCommand(
+        public RelayCommand HighScoresCommand => _highScoresCommand ?? (_highScoresCommand = new RelayCommand(
             () =>
             {
                 mainView.ChildViewModel = mainView.HighScoresViewModel;

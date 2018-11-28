@@ -33,6 +33,8 @@ namespace Boggle.Shared.ViewModels
         {
             MainScreenViewModel = new MainScreenViewModel(this);
             HowToPlayViewModel = new HowToPlayViewModel(this);
+            HighScoresViewModel = new HighScoresViewModel(this);
+            BoggleGameViewModel = new BoggleGameViewModel(this);
             ChildViewModel = MainScreenViewModel;
         }
     }
