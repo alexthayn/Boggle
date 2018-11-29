@@ -9,8 +9,26 @@ using System.Text;
 
 namespace Boggle.Shared.Models
 {
-    public class BoggleGame : ViewModelBase, IBoggleGame
+    public class BoggleGame : ObservableObject, IBoggleGame
     {
+        public GameBoard GameBoard;
+        private Stopwatch Timer;
+
+        private string[] _row1;
+        public string[] Row1 { get => _row1; set => Set(ref _row1, value); }
+        private string[] _row2;
+        public string[] Row2 { get => _row2; set => Set(ref _row2, value); }
+        private string[] _row3;
+        public string[] Row3 { get => _row3; set => Set(ref _row3, value); }
+        private string[] _row4;
+        public string[] Row4 { get => _row4; set => Set(ref _row4, value); }
+
+        public BoggleGame()
+        {
+            GameBoard = new GameBoard();
+            Timer = new Stopwatch();
+        }
+
         //Overall game score updated with each valid word
         private int _score;
         public int Score
@@ -37,8 +55,6 @@ namespace Boggle.Shared.Models
                 Set(ref _username, value);
             }
         }
-        public GameBoard GameBoard;
-        private Stopwatch Timer = new Stopwatch();
 
         public int CalculateWordScore(string Word)
         {
@@ -61,12 +77,17 @@ namespace Boggle.Shared.Models
         {
             Username = username;
             GameBoard.ShakeDice();
+
+            Row1 = GameBoard.GameGrid[0];
+            Row2 = GameBoard.GameGrid[1];
+            Row3 = GameBoard.GameGrid[2];
+            Row4 = GameBoard.GameGrid[3];
             //I can bind the Timer.Elapsed value to a label on my UI to display the elapsed time
             Timer.Start();
-            while(Timer.ElapsedMilliseconds <= 180000)
-            {
-                //play game
-            }
+            //while(Timer.ElapsedMilliseconds <= 180000)
+            //{
+            //    //play game
+            //}
         }
 
         public int GetScore()

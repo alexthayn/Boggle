@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Boggle.Shared.Interfaces;
+using Boggle.Shared.Models;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,9 @@ namespace Boggle.Shared.ViewModels
     public class BoggleGameViewModel : ViewModelBase
     {
         private readonly MainViewModel mainView;
+        private readonly IDataService dataService;
+        private IBoggleGame _theGame;
+        public IBoggleGame TheGame { get => _theGame; set => Set(ref _theGame, value); }
 
         public List<string> _listOfGuesses;
         public List<string> ListOfGuesses
@@ -16,11 +21,27 @@ namespace Boggle.Shared.ViewModels
             set => Set(ref _listOfGuesses, value);
         }
 
-        public BoggleGameViewModel(MainViewModel mainViewModel)
+        public string Username;
+
+        public BoggleGameViewModel(MainViewModel mainViewModel, IBoggleGame boggleGame, IDataService dataService)
         {
             mainView = mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
+            TheGame = boggleGame;
+            this.dataService = dataService;
             //Dummy data for testing UI remove later*******************************************************************
-            ListOfGuesses = new List<string>() { "hello", "goodbye" };
+            ListOfGuesses = new List<string>() { "hello", "goodbye", "garden","end","begun","area","bear","thick",
+                                                    "attention","swept","planned","evidence","salt","liquid",
+                                                    "unit","climate","war","pan","twelve","shine",
+                                                    "out","again","arrangement","believed","down","energy",
+                                                    "family","felt","pen","feet","grass","bone",
+                                                    "trouble","too","same","wolf","grass","book",
+                                                    "unit","fuel","flag","health","though","heat" };
+        }
+
+        public BoggleGameViewModel(MainViewModel mainViewModel, IBoggleGame boggleGame, IDataService dataService, string username) :this(mainViewModel,boggleGame,dataService)
+        {
+            Username = username;
+            TheGame.NewGame(Username);
         }
 
         private RelayCommand _backToMain;
@@ -35,7 +56,7 @@ namespace Boggle.Shared.ViewModels
             () =>
             {
                 //Ask user the confirm
-                //Save game and return to game after they are done
+                mainView.PreviousViewModel = this;
                 mainView.ChildViewModel = mainView.HowToPlayViewModel;
             }));
 

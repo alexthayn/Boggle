@@ -32,9 +32,13 @@ namespace Boggle.Shared.Models
         {
             GameDice = new List<BoggleDie>() { DIE0, DIE1, DIE2, DIE3, DIE4, DIE5, DIE6, DIE7,
                                               DIE8, DIE9, DIE10, DIE11, DIE12, DIE13, DIE14, DIE15 };
+            GameGrid[0] = new string[GRIDSIZE];
+            GameGrid[1] = new string[GRIDSIZE];
+            GameGrid[2] = new string[GRIDSIZE];
+            GameGrid[3] = new string[GRIDSIZE];
         }
 
-        public string[,] GameGrid = new string[GRIDSIZE, GRIDSIZE];
+        public string[][] GameGrid = new string[GRIDSIZE][];
 
         public void ShakeDice()
         {
@@ -47,7 +51,7 @@ namespace Boggle.Shared.Models
             {
                 for(int j = 0; j < GRIDSIZE; j++)
                 {
-                    GameGrid[i, j] = GameDice[dieNum].RollDie();
+                    GameGrid[i][j]= GameDice[dieNum].RollDie();
                     dieNum++;
                 }
             }

@@ -14,9 +14,15 @@ namespace Boggle.Shared.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+
+        private readonly IDataService dataService;
         private object _childViewModel;
         public object ChildViewModel { get => _childViewModel; set => Set(ref _childViewModel, value); }
+        public BoggleGame TheGame;
 
+        private ObservableObject _previousViewModel;
+        public ObservableObject PreviousViewModel { get => _previousViewModel; set => Set(ref _previousViewModel, value); }
+            
         private MainScreenViewModel _mainScreenViewModel;
         public MainScreenViewModel MainScreenViewModel { get => _mainScreenViewModel; set => Set(ref _mainScreenViewModel, value); }
 
@@ -31,10 +37,12 @@ namespace Boggle.Shared.ViewModels
 
         public MainViewModel()
         {
-            MainScreenViewModel = new MainScreenViewModel(this);
+            TheGame = new BoggleGame();
+            this.dataService = new SqliteDataService("Boggle.db");
+            MainScreenViewModel = new MainScreenViewModel(this, TheGame, dataService);
             HowToPlayViewModel = new HowToPlayViewModel(this);
-            HighScoresViewModel = new HighScoresViewModel(this);
-            BoggleGameViewModel = new BoggleGameViewModel(this);
+            HighScoresViewModel = new HighScoresViewModel(this, dataService);
+            BoggleGameViewModel = new BoggleGameViewModel(this, TheGame, dataService);
             ChildViewModel = MainScreenViewModel;
         }
     }

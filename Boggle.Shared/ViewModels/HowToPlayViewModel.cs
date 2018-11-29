@@ -19,7 +19,7 @@ namespace Boggle.Shared.ViewModels
         public RelayCommand BackToMain => _backToMain ?? (_backToMain = new RelayCommand(
             () =>
             {
-                mainView.ChildViewModel = mainView.MainScreenViewModel;
+                mainView.ChildViewModel = mainView.PreviousViewModel;
             }));
     }
 }
