@@ -17,10 +17,29 @@ namespace Boggle.Shared.ViewModels
         private readonly MainViewModel mainView;
         private readonly IDataService dataService;
 
+        public MainScreenViewModel(MainViewModel mainViewModel, IBoggleGame boggleGame, IDataService dataService)
+        {
+            mainView = mainViewModel;
+            TheGame = boggleGame;
+            Username = GetRandomUsername();
+
+            this.dataService = dataService;
+            this.dataService.AddNewPlayer(new Player { Name = "Spongebob" });
+            this.dataService.AddNewPlayer(new Player { Name = "Patrick" });
+            this.dataService.AddNewPlayer(new Player { Name = "Squidward" });
+            this.dataService.AddNewGame(new Game { PlayerId = 3, Score = 10000 });
+            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 1423 });
+            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 4554 });
+            this.dataService.AddNewGame(new Game { PlayerId = 2, Score = 89743 });
+            GamesList = dataService.GetAllGames().ToList();
+            Players = dataService.GetAllPlayers().ToList();
+        }
+
         private RelayCommand _refreshUsernameCommand;
         public RelayCommand RefreshUsernameCommand => _refreshUsernameCommand ?? (_refreshUsernameCommand = new RelayCommand(
             () =>
             {
+                mainView.PreviousViewModel = this;
                 Username = GetRandomUsername();
             }));
 
@@ -28,6 +47,7 @@ namespace Boggle.Shared.ViewModels
         public RelayCommand HowToPlayCommand => _howToPlayCommand ?? (_howToPlayCommand = new RelayCommand(
             () =>
             {
+                mainView.PreviousViewModel = this;
                 mainView.ChildViewModel = mainView.HowToPlayViewModel;
             }));
 
@@ -42,6 +62,7 @@ namespace Boggle.Shared.ViewModels
         public RelayCommand HighScoresCommand => _highScoresCommand ?? (_highScoresCommand = new RelayCommand(
             () =>
             {
+                mainView.PreviousViewModel = this;
                 mainView.ChildViewModel = mainView.HighScoresViewModel;
             }));
 
@@ -49,6 +70,8 @@ namespace Boggle.Shared.ViewModels
         public RelayCommand NewGameCommand => _newGameCommand ?? (_newGameCommand = new RelayCommand(
             () =>
             {
+                mainView.PreviousViewModel = this;
+                mainView.BoggleGameViewModel = new BoggleGameViewModel(mainView, TheGame, dataService, Username);
                 mainView.ChildViewModel = mainView.BoggleGameViewModel;
             }));
 
@@ -89,24 +112,6 @@ namespace Boggle.Shared.ViewModels
             {
                 Set(ref _players, value);
             }
-        }
-
-        public MainScreenViewModel(MainViewModel mainViewModel, IBoggleGame boggleGame, IDataService dataService)
-        {
-            mainView = mainViewModel;
-            TheGame = boggleGame;
-            Username = GetRandomUsername();
-
-            this.dataService = dataService;
-            this.dataService.AddNewPlayer(new Player { Name = "Spongebob" });
-            this.dataService.AddNewPlayer(new Player { Name = "Patrick" });
-            this.dataService.AddNewPlayer(new Player { Name = "Squidward" });
-            this.dataService.AddNewGame(new Game { PlayerId = 3, Score = 10000 });
-            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 1423 });
-            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 4554 });
-            this.dataService.AddNewGame(new Game { PlayerId = 2, Score = 89743 });
-            GamesList = dataService.GetAllGames().ToList();
-            Players = dataService.GetAllPlayers().ToList();
         }
 
         //Just a method to set the username randomly if the user doesn't enter one

@@ -20,6 +20,9 @@ namespace Boggle.Shared.ViewModels
         public object ChildViewModel { get => _childViewModel; set => Set(ref _childViewModel, value); }
         public BoggleGame TheGame;
 
+        private ObservableObject _previousViewModel;
+        public ObservableObject PreviousViewModel { get => _previousViewModel; set => Set(ref _previousViewModel, value); }
+            
         private MainScreenViewModel _mainScreenViewModel;
         public MainScreenViewModel MainScreenViewModel { get => _mainScreenViewModel; set => Set(ref _mainScreenViewModel, value); }
 

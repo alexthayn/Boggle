@@ -11,6 +11,15 @@ namespace Boggle.Shared.Models
 {
     public class BoggleGame : ViewModelBase, IBoggleGame
     {
+        public GameBoard GameBoard;
+        private Stopwatch Timer;
+
+        public BoggleGame()
+        {
+            GameBoard = new GameBoard();
+            Timer = new Stopwatch();
+        }
+
         //Overall game score updated with each valid word
         private int _score;
         public int Score
@@ -37,8 +46,6 @@ namespace Boggle.Shared.Models
                 Set(ref _username, value);
             }
         }
-        public GameBoard GameBoard;
-        private Stopwatch Timer = new Stopwatch();
 
         public int CalculateWordScore(string Word)
         {
@@ -63,10 +70,10 @@ namespace Boggle.Shared.Models
             GameBoard.ShakeDice();
             //I can bind the Timer.Elapsed value to a label on my UI to display the elapsed time
             Timer.Start();
-            while(Timer.ElapsedMilliseconds <= 180000)
-            {
-                //play game
-            }
+            //while(Timer.ElapsedMilliseconds <= 180000)
+            //{
+            //    //play game
+            //}
         }
 
         public int GetScore()
