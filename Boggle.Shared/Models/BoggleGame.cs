@@ -23,38 +23,19 @@ namespace Boggle.Shared.Models
         private string[] _row4;
         public string[] Row4 { get => _row4; set => Set(ref _row4, value); }
 
+        //Overall game score updated with each valid word
+        private int _score;
+        public int Score { get => _score; set => Set(ref _score, value); }
+
+        private string _username;
+        public string Username { get => _username; set => Set(ref _username, value); }
+
         public BoggleGame()
         {
             GameBoard = new GameBoard();
             Timer = new Stopwatch();
         }
 
-        //Overall game score updated with each valid word
-        private int _score;
-        public int Score
-        {
-            get
-            {
-                return _score;
-            }
-            set
-            {
-                Set(ref _score, value);
-            }
-        }
-
-        private string _username;
-        public string Username
-        {
-            get
-            {
-                return _username;
-            }
-            set
-            {
-                Set(ref _username, value);
-            }
-        }
 
         public int CalculateWordScore(string Word)
         {

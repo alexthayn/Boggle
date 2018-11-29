@@ -73,6 +73,9 @@ namespace Boggle.Shared.ViewModels
             () =>
             {
                 //Ask user the confirm
+                var newGame = new BoggleGame();
+                newGame.NewGame(Username);
+                mainView.BoggleGameViewModel = new BoggleGameViewModel(mainView, newGame, dataService);
                 mainView.ChildViewModel = mainView.BoggleGameViewModel;
             }));
 
