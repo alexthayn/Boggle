@@ -52,9 +52,9 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             
             <!--Timer Display-->
@@ -93,6 +93,7 @@
 
             <!--Previously Guessed Words-->
             <ScrollViewer Grid.Row="3"
+                          Grid.RowSpan="2"
                           extensionProperties:ScrollViewerExtensions.AlwaysScrollToEnd="True"
                           Background="#d1e8ff"
                           Margin="10"
@@ -230,15 +231,18 @@
             </Grid>
             
             <!--User input-->
-            <Label Content="Enter Guess: "
-                   FontSize="16"
-                   Margin="50,0"
-                   Grid.Row="4"/>
-            <TextBox Grid.Row="4" 
-                     FontSize="16"
-                     Margin="10,0"
-                     VerticalAlignment="Center"
-                     Grid.Column="2"/>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        Margin="0,0,0,8">
+                <Label Content="Enter Guess: "
+                       FontSize="16"/>
+                <TextBox FontSize="16"
+                         Margin="10,0"
+                         MinWidth="375"
+                         MinHeight="30"
+                         VerticalAlignment="Center"/>
+            </StackPanel>
         </Grid>
     </DockPanel>
 </UserControl>
