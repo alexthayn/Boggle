@@ -94,7 +94,7 @@
             </ScrollViewer>
             
             <!--Game Board-->
-            <Grid DataContext="{Binding TheGame.GameBoard}"
+            <Grid DataContext="{Binding TheGame}"
                   Grid.Column="2"
                   Grid.Row="3">
                 <Grid.ColumnDefinitions>
@@ -110,10 +110,64 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <!--Letter Dice 4x4 grid-->
-                <TextBlock Text="{Binding GameGrid[1\,1]}"
+                <TextBlock Text="{Binding Row1[0]}"
                            FontSize="48"/>
-                <TextBlock Text="{Binding GameGrid[1\,1]}"
+                <TextBlock Text="{Binding Row1[1]}"
+                           Grid.Column="1"
+                           FontSize="48"/>
+                <TextBlock Text="{Binding Row1[2]}"
+                           Grid.Column="2"
+                           FontSize="48"/>
+                <TextBlock Text="{Binding Row1[3]}"
+                           Grid.Column="3"
+                           FontSize="48"/>
+                
+                <TextBlock Text="{Binding Row2[0]}"
+                           FontSize="48"
+                           Grid.Row="1"/>
+                <TextBlock Text="{Binding Row2[1]}"
+                           Grid.Column="1"
                            Grid.Row="1"
+                           FontSize="48"/>
+                <TextBlock Text="{Binding Row2[2]}"
+                           Grid.Column="2"
+                           Grid.Row="1"
+                           FontSize="48"/>
+                <TextBlock Text="{Binding Row2[3]}"
+                           Grid.Column="3"
+                           Grid.Row="1"
+                           FontSize="48"/>
+
+                <TextBlock Text="{Binding Row3[0]}"
+                           FontSize="48"
+                           Grid.Row="2"/>
+                <TextBlock Text="{Binding Row3[1]}"
+                           Grid.Column="1"
+                           Grid.Row="2"
+                           FontSize="48"/>
+                <TextBlock Text="{Binding Row3[2]}"
+                           Grid.Column="2"
+                           Grid.Row="2"
+                           FontSize="48"/>
+                <TextBlock Text="{Binding Row3[3]}"
+                           Grid.Column="3"
+                           Grid.Row="2"
+                           FontSize="48"/>
+
+                <TextBlock Text="{Binding Row4[0]}"
+                           FontSize="48"
+                           Grid.Row="3"/>
+                <TextBlock Text="{Binding Row4[1]}"
+                           Grid.Column="1"
+                           Grid.Row="3"
+                           FontSize="48"/>
+                <TextBlock Text="{Binding Row4[2]}"
+                           Grid.Column="2"
+                           Grid.Row="3"
+                           FontSize="48"/>
+                <TextBlock Text="{Binding Row4[3]}"
+                           Grid.Column="3"
+                           Grid.Row="3"
                            FontSize="48"/>
             </Grid>
             

@@ -11,7 +11,8 @@ namespace Boggle.Shared.ViewModels
     {
         private readonly MainViewModel mainView;
         private readonly IDataService dataService;
-        public IBoggleGame TheGame;
+        private IBoggleGame _theGame;
+        public IBoggleGame TheGame { get => _theGame; set => Set(ref _theGame, value); }
 
         public List<string> _listOfGuesses;
         public List<string> ListOfGuesses
