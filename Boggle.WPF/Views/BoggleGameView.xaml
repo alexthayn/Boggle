@@ -89,10 +89,20 @@
                        FontSize="24"
                        DockPanel.Dock="Right"
                        Width="75"/>
-                <Label Content="BOGGLE!"
-                       HorizontalAlignment="Center"
-                       FontSize="40"
-                       Foreground="DodgerBlue"/>
+                <Button Content="New Game"
+                        Command="{Binding NewGameCommand}"                 
+                        Background="White"
+                        BorderBrush="DodgerBlue"
+                        BorderThickness="4"
+                        Width="150"
+                        Margin="20,5"/>
+                <Button Content="End Game"
+                        Command="{Binding EndGameCommand}"
+                        Background="White"
+                        BorderBrush="DodgerBlue"
+                        BorderThickness="4"
+                        Width="150"
+                        Margin="20,5"/>
             </DockPanel>
 
             <!--Previously Guessed Words-->
