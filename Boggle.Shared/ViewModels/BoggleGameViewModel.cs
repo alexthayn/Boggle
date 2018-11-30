@@ -4,8 +4,6 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace Boggle.Shared.ViewModels
 {
@@ -98,11 +96,7 @@ namespace Boggle.Shared.ViewModels
         public RelayCommand UpdateUserGuessOnEnterCommand(object parameter) => _updateUserGuessOnEnterCommand ?? (_updateUserGuessOnEnterCommand = new RelayCommand(
             () =>
             {
-                if (parameter is TextBox textBox)
-                {
-                    UserGuess = textBox.Text;
-                    ListOfGuesses.Add(UserGuess);
-                }
+                
             }));
     }
 }
