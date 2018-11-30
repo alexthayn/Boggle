@@ -45,22 +45,5 @@ namespace UnitTests
 
             Assert.AreEqual(vm.GamesList[0].Score, 10294);
         }
-
-        [Test]
-        public void TestHighScoresAreOrderedCorrectly()
-        {
-            IDataService data = new SqliteDataService("test.db");
-
-            data.AddNewPlayer(new Player { Name = "Spongebob" });
-            data.AddNewPlayer(new Player { Name = "Patrick" });
-            data.AddNewGame(new Game { PlayerId = 2, Score = 10000 });
-            data.AddNewGame(new Game { PlayerId = 1, Score = 1423 });
-
-            List<PlayerScore> highScore = data.GetPlayerScores().ToList();
-            PlayerScore expectedScore = new PlayerScore() { Score = 10000, Username = "Patrick" };
-
-            Assert.IsTrue(expectedScore.Score == highScore.First().Score 
-                && expectedScore.Username == highScore.First().Username);
-        }
     }
 }
