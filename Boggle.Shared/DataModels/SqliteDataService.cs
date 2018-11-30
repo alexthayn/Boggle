@@ -1,6 +1,8 @@
 ﻿using Boggle.Shared.Interfaces;
+using Boggle.Shared.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Boggle.Shared.DataModels
@@ -42,6 +44,27 @@ namespace Boggle.Shared.DataModels
             foreach (Player player in context.Players)
                 Players.Add(player);
             return Players;
+        }
+
+        public IEnumerable<PlayerScore> GetPlayerScores()
+        {
+            List<Game> Games = GetAllGames().ToList();
+            List<PlayerScore> HighScores = new List<PlayerScore>();
+
+            //Sort the games from highest to lowest score
+            Games = Games.OrderByDescending(s => s.Score).ToList();
+            foreach(Game g in Games)
+            {
+                HighScores.Add(new PlayerScore() { Score = g.Score, Username = GetUsernameById(g.PlayerId)});
+            }
+
+            return HighScores;
+        } 
+
+        public string GetUsernameById(int id)
+        {
+            List<Player> Players = GetAllPlayers().ToList();
+            return Players?.Find(p => p.Id == id).Name;
         }
     }
 }

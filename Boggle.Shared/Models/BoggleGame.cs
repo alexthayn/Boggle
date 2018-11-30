@@ -6,13 +6,15 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Boggle.Shared.Models
 {
     public class BoggleGame : ObservableObject, IBoggleGame
     {
         public GameBoard GameBoard;
-        private Stopwatch Timer;
+        private TimeSpan _remainingTime;
+        public TimeSpan RemainingTime { get => _remainingTime; set => Set(ref _remainingTime, value); }
 
         private string[] _row1;
         public string[] Row1 { get => _row1; set => Set(ref _row1, value); }
@@ -27,15 +29,17 @@ namespace Boggle.Shared.Models
         private int _score;
         public int Score { get => _score; set => Set(ref _score, value); }
 
+        //Number of correct words guessed
+        private int _wordCount;
+        public int WordCount { get => _wordCount; set => Set(ref _wordCount, value); }
+
         private string _username;
         public string Username { get => _username; set => Set(ref _username, value); }
 
         public BoggleGame()
         {
             GameBoard = new GameBoard();
-            Timer = new Stopwatch();
         }
-
 
         public int CalculateWordScore(string Word)
         {
@@ -58,13 +62,12 @@ namespace Boggle.Shared.Models
         {
             Username = username;
             GameBoard.ShakeDice();
-
+            StartCountdown();
             Row1 = GameBoard.GameGrid[0];
             Row2 = GameBoard.GameGrid[1];
             Row3 = GameBoard.GameGrid[2];
             Row4 = GameBoard.GameGrid[3];
             //I can bind the Timer.Elapsed value to a label on my UI to display the elapsed time
-            Timer.Start();
             //while(Timer.ElapsedMilliseconds <= 180000)
             //{
             //    //play game
@@ -74,6 +77,27 @@ namespace Boggle.Shared.Models
         public int GetScore()
         {
             return Score;
+        }
+
+        private async void StartCountdown()
+        {
+            DateTime startTime = DateTime.UtcNow, endTime = startTime.AddMinutes(3);
+            TimeSpan remainingTime = endTime - startTime;
+            TimeSpan interval = TimeSpan.FromMilliseconds(100);
+
+            while(remainingTime > TimeSpan.Zero)
+            {
+                RemainingTime = remainingTime;
+                if(RemainingTime < interval)
+                {
+                    interval = RemainingTime;
+                }
+
+                await Task.Delay(interval);
+                remainingTime = endTime - DateTime.UtcNow;
+            }
+
+            RemainingTime = TimeSpan.Zero;               
         }
     }
 }

@@ -20,17 +20,9 @@ namespace Boggle.Shared.ViewModels
         public MainScreenViewModel(MainViewModel mainViewModel, IBoggleGame boggleGame, IDataService dataService)
         {
             mainView = mainViewModel;
+            this.dataService = dataService;
             TheGame = boggleGame;
             Username = GetRandomUsername();
-
-            this.dataService = dataService;
-            this.dataService.AddNewPlayer(new Player { Name = "Spongebob" });
-            this.dataService.AddNewPlayer(new Player { Name = "Patrick" });
-            this.dataService.AddNewPlayer(new Player { Name = "Squidward" });
-            this.dataService.AddNewGame(new Game { PlayerId = 3, Score = 10000 });
-            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 1423 });
-            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 4554 });
-            this.dataService.AddNewGame(new Game { PlayerId = 2, Score = 89743 });
             GamesList = dataService.GetAllGames().ToList();
             Players = dataService.GetAllPlayers().ToList();
         }

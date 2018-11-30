@@ -1,7 +1,6 @@
 ﻿using Boggle.Shared.DataModels;
-using System;
+using Boggle.Shared.Models;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Boggle.Shared.Interfaces
 {
@@ -11,5 +10,6 @@ namespace Boggle.Shared.Interfaces
         void AddNewGame(Game g);
         IEnumerable<Game> GetAllGames();
         IEnumerable<Player> GetAllPlayers();
+        IEnumerable<PlayerScore> GetPlayerScores();
     }
 }

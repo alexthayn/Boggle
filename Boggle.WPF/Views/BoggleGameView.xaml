@@ -59,9 +59,13 @@
             
             <!--Timer Display-->
             <StackPanel Orientation="Horizontal"
-                        Margin="3">
+                        Margin="3"
+                        DataContext="{Binding TheGame}">
                 <Label Content="Time Left: "/>
-                <Label Content="{Binding TimeLeft}"/>
+                <Label Content="{Binding RemainingTime.Minutes}"/>
+                <Label Content=":"
+                       Margin="-7,0"/>
+                <Label Content="{Binding RemainingTime.Seconds}"/>
             </StackPanel>
             
             <!--Word Count Display-->
@@ -70,14 +74,14 @@
                         Grid.Row="1">
                 <Label Content="Word Count: "
                        />
-                <Label Content="{Binding WordCount}"/>
+                <Label Content="{Binding TheGame.WordCount}"/>
             </StackPanel>
 
             <!--Score Display-->
             <DockPanel Grid.Column="2"
                        Grid.RowSpan="2"
                        VerticalAlignment="Center">
-                <Label Content="{Binding Score}"
+                <Label Content="{Binding TheGame.Score}"
                        FontSize="24"
                        Width="75"
                        DockPanel.Dock="Right"/>
@@ -96,12 +100,10 @@
                           Grid.RowSpan="2"
                           extensionProperties:ScrollViewerExtensions.AlwaysScrollToEnd="True"
                           Background="#d1e8ff"
-                          Margin="10"
+                          Margin="10"          
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled">
-                <ItemsControl ItemsSource="{Binding ListOfGuesses}"
-                              BorderBrush="DodgerBlue"
-                              BorderThickness="2">
+                <ItemsControl ItemsSource="{Binding ListOfGuesses}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding}"

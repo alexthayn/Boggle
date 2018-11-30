@@ -36,6 +36,7 @@ namespace Boggle.Shared.ViewModels
                                                     "family","felt","pen","feet","grass","bone",
                                                     "trouble","too","same","wolf","grass","book",
                                                     "unit","fuel","flag","health","though","heat" };
+            
         }
 
         public BoggleGameViewModel(MainViewModel mainViewModel, IBoggleGame boggleGame, IDataService dataService, string username) :this(mainViewModel,boggleGame,dataService)

@@ -1,5 +1,6 @@
 ﻿using Boggle.Shared.DataModels;
 using Boggle.Shared.Interfaces;
+using Boggle.Shared.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -11,14 +12,16 @@ namespace Boggle.Shared.ViewModels
     public class HighScoresViewModel : ViewModelBase
     {
         private readonly MainViewModel mainView;
-        public List<Game> ListOfHighScores;
-        private IDataService dataService;
+
+        private List<PlayerScore> _listOfHighScores;
+        public List<PlayerScore> ListOfHighScores { get => _listOfHighScores; set => Set(ref _listOfHighScores, value); }    
+        private readonly IDataService dataService;
 
         public HighScoresViewModel(MainViewModel mainViewModel, IDataService dataService)
         {
             this.dataService = dataService;
             mainView = mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
-            ListOfHighScores = dataService.GetAllGames().ToList();
+            ListOfHighScores = dataService.GetPlayerScores().ToList();
         }
 
         private RelayCommand _backToMain;

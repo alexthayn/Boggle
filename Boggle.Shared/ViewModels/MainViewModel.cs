@@ -39,6 +39,13 @@ namespace Boggle.Shared.ViewModels
         {
             TheGame = new BoggleGame();
             this.dataService = new SqliteDataService("Boggle.db");
+            this.dataService.AddNewPlayer(new Player { Name = "Spongebob" });
+            this.dataService.AddNewPlayer(new Player { Name = "Patrick" });
+            this.dataService.AddNewPlayer(new Player { Name = "Squidward" });
+            this.dataService.AddNewGame(new Game { PlayerId = 3, Score = 10000 });
+            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 1423 });
+            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 4554 });
+            this.dataService.AddNewGame(new Game { PlayerId = 2, Score = 89743 });
             MainScreenViewModel = new MainScreenViewModel(this, TheGame, dataService);
             HowToPlayViewModel = new HowToPlayViewModel(this);
             HighScoresViewModel = new HighScoresViewModel(this, dataService);

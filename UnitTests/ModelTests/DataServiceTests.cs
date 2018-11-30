@@ -38,5 +38,11 @@ namespace UnitTests
 
             Assert.AreEqual(vm.GamesList[0].Score, 10294);
         }
+
+        [Test]
+        public void TestHighScoresReturnedCorrectly()
+        {
+
+        }
     }
 }
