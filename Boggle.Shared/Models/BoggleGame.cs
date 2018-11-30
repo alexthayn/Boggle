@@ -67,12 +67,7 @@ namespace Boggle.Shared.Models
             Row1 = GameBoard.GameGrid[0];
             Row2 = GameBoard.GameGrid[1];
             Row3 = GameBoard.GameGrid[2];
-            Row4 = GameBoard.GameGrid[3];
-            //I can bind the Timer.Elapsed value to a label on my UI to display the elapsed time
-            //while(Timer.ElapsedMilliseconds <= 180000)
-            //{
-            //    //play game
-            //}
+            Row4 = GameBoard.GameGrid[3];            
         }
 
         public int GetScore()
@@ -98,7 +93,8 @@ namespace Boggle.Shared.Models
                 remainingTime = endTime - DateTime.UtcNow;
             }
 
-            RemainingTime = TimeSpan.Zero;               
+            RemainingTime = TimeSpan.Zero;  
+            
         }
     }
 }
