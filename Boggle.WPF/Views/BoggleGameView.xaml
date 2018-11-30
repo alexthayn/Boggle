@@ -240,10 +240,17 @@
                 <Label Content="Enter Guess: "
                        FontSize="16"/>
                 <TextBox FontSize="16"
+                         Text="{Binding Path=UserGuess, UpdateSourceTrigger=Explicit}"
                          Margin="10,0"
                          MinWidth="375"
                          MinHeight="30"
-                         VerticalAlignment="Center"/>
+                         VerticalAlignment="Center">
+                    <TextBox.InputBindings>
+                        <KeyBinding Gesture="Enter"
+                                    Command="{Binding UpdateUserGuessOnEnterCommand}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TextBox}}}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
             </StackPanel>
         </Grid>
     </DockPanel>

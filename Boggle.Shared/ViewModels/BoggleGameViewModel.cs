@@ -4,6 +4,8 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Boggle.Shared.ViewModels
 {
@@ -14,12 +16,15 @@ namespace Boggle.Shared.ViewModels
         private IBoggleGame _theGame;
         public IBoggleGame TheGame { get => _theGame; set => Set(ref _theGame, value); }
 
-        public List<string> _listOfGuesses;
+        private List<string> _listOfGuesses;
         public List<string> ListOfGuesses
         {
             get => _listOfGuesses;
             set => Set(ref _listOfGuesses, value);
         }
+
+        private string _userGuess;
+        public string UserGuess { get => _userGuess; set => Set(ref _userGuess, value); }
 
         public string Username;
 
@@ -29,13 +34,13 @@ namespace Boggle.Shared.ViewModels
             TheGame = boggleGame;
             this.dataService = dataService;
             //Dummy data for testing UI remove later*******************************************************************
-            ListOfGuesses = new List<string>() { "hello", "goodbye", "garden","end","begun","area","bear","thick",
-                                                    "attention","swept","planned","evidence","salt","liquid",
-                                                    "unit","climate","war","pan","twelve","shine",
-                                                    "out","again","arrangement","believed","down","energy",
-                                                    "family","felt","pen","feet","grass","bone",
-                                                    "trouble","too","same","wolf","grass","book",
-                                                    "unit","fuel","flag","health","though","heat" };
+            //ListOfGuesses = new List<string>() { "hello", "goodbye", "garden","end","begun","area","bear","thick",
+            //                                        "attention","swept","planned","evidence","salt","liquid",
+            //                                        "unit","climate","war","pan","twelve","shine",
+            //                                        "out","again","arrangement","believed","down","energy",
+            //                                        "family","felt","pen","feet","grass","bone",
+            //                                        "trouble","too","same","wolf","grass","book",
+            //                                        "unit","fuel","flag","health","though","heat" };
             
         }
 
@@ -87,6 +92,17 @@ namespace Boggle.Shared.ViewModels
                 //Ask user the confirm
                 mainView.ChildViewModel = mainView.MainScreenViewModel;
                 //clean up game here
+            }));
+
+        private RelayCommand _updateUserGuessOnEnterCommand;
+        public RelayCommand UpdateUserGuessOnEnterCommand(object parameter) => _updateUserGuessOnEnterCommand ?? (_updateUserGuessOnEnterCommand = new RelayCommand(
+            () =>
+            {
+                if (parameter is TextBox textBox)
+                {
+                    UserGuess = textBox.Text;
+                    ListOfGuesses.Add(UserGuess);
+                }
             }));
     }
 }
