@@ -43,6 +43,7 @@ namespace Boggle.Shared.Models
 
         public int CalculateWordScore(string Word)
         {
+            //I need to handle characters other than alphabetical ones so they don't count towards the score
             if(Word.Length < 3)
                 return 0;
             
