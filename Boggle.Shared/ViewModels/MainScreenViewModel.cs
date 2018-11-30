@@ -1,13 +1,10 @@
 ﻿using Boggle.Shared.DataModels;
 using Boggle.Shared.Interfaces;
-using Boggle.Shared.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Boggle.Shared.ViewModels
 {
@@ -68,43 +65,13 @@ namespace Boggle.Shared.ViewModels
             }));
 
         private string _username;
-        public string Username
-        {
-            get
-            {
-                return _username;
-            }
-            set
-            {
-                Set(ref _username, value);
-            }
-        }
+        public string Username { get => _username; set => Set(ref _username, value); }
 
         private List<Game> _gamesList;
-        public List<Game> GamesList
-        {
-            get
-            {
-                return _gamesList;
-            }
-            set
-            {
-                Set(ref _gamesList, value);
-            }
-        }
+        public List<Game> GamesList { get => _gamesList; set => Set(ref _gamesList, value); }
 
         private List<Player> _players;
-        public List<Player> Players
-        {
-            get
-            {
-                return _players;
-            }
-            set
-            {
-                Set(ref _players, value);
-            }
-        }
+        public List<Player> Players { get => _players; set => Set(ref _players, value); }
 
         //Just a method to set the username randomly if the user doesn't enter one
         public string GetRandomUsername()
