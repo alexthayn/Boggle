@@ -61,7 +61,7 @@ namespace Boggle.Shared.DataModels
             return HighScores;
         } 
 
-        public string GetUsernameById(int id)
+        private string GetUsernameById(int id)
         {
             List<Player> Players = GetAllPlayers().ToList();
             return Players?.Find(p => p.Id == id).Name;
