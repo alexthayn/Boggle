@@ -1,11 +1,7 @@
 ﻿using Boggle.Shared.Interfaces;
-using Boggle.Shared.Models;
 using Boggle.Shared.ViewModels;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace UnitTests.ViewModelTests
 {
@@ -20,8 +16,8 @@ namespace UnitTests.ViewModelTests
         public void Setup()
         {
             mvm = new MainViewModel();
-            msvm = new MainScreenViewModel(mvm, new BoggleGame(), new Mock<IDataService>().Object);
-            bgvm = new BoggleGameViewModel(mvm, new BoggleGame(), new Mock<IDataService>().Object);
+            msvm = new MainScreenViewModel(mvm, new Mock<IDataService>().Object);
+            bgvm = new BoggleGameViewModel(mvm, new Mock<IDataService>().Object);
         }
       
         // Main Screen Navigation        

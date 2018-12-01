@@ -5,9 +5,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Boggle.Shared.ViewModels
 {
@@ -17,20 +15,12 @@ namespace Boggle.Shared.ViewModels
         private readonly MainViewModel mainView;
         private readonly IDataService dataService;
 
-        public MainScreenViewModel(MainViewModel mainViewModel, IBoggleGame boggleGame, IDataService dataService)
+        public MainScreenViewModel(MainViewModel mainViewModel, IDataService dataService)
         {
             mainView = mainViewModel;
-            TheGame = boggleGame;
-            Username = GetRandomUsername();
-
             this.dataService = dataService;
-            this.dataService.AddNewPlayer(new Player { Name = "Spongebob" });
-            this.dataService.AddNewPlayer(new Player { Name = "Patrick" });
-            this.dataService.AddNewPlayer(new Player { Name = "Squidward" });
-            this.dataService.AddNewGame(new Game { PlayerId = 3, Score = 10000 });
-            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 1423 });
-            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 4554 });
-            this.dataService.AddNewGame(new Game { PlayerId = 2, Score = 89743 });
+            TheGame = mainView.TheGame;
+            Username = GetRandomUsername();
             GamesList = dataService.GetAllGames().ToList();
             Players = dataService.GetAllPlayers().ToList();
         }
@@ -71,48 +61,19 @@ namespace Boggle.Shared.ViewModels
             () =>
             {
                 mainView.PreviousViewModel = this;
-                mainView.BoggleGameViewModel = new BoggleGameViewModel(mainView, TheGame, dataService, Username);
+                mainView.TheGame = new BoggleGame(Username);
+                mainView.BoggleGameViewModel = new BoggleGameViewModel(mainView, dataService, Username);
                 mainView.ChildViewModel = mainView.BoggleGameViewModel;
             }));
 
         private string _username;
-        public string Username
-        {
-            get
-            {
-                return _username;
-            }
-            set
-            {
-                Set(ref _username, value);
-            }
-        }
+        public string Username { get => _username; set => Set(ref _username, value); }
 
         private List<Game> _gamesList;
-        public List<Game> GamesList
-        {
-            get
-            {
-                return _gamesList;
-            }
-            set
-            {
-                Set(ref _gamesList, value);
-            }
-        }
+        public List<Game> GamesList { get => _gamesList; set => Set(ref _gamesList, value); }
 
         private List<Player> _players;
-        public List<Player> Players
-        {
-            get
-            {
-                return _players;
-            }
-            set
-            {
-                Set(ref _players, value);
-            }
-        }
+        public List<Player> Players { get => _players; set => Set(ref _players, value); }
 
         //Just a method to set the username randomly if the user doesn't enter one
         public string GetRandomUsername()

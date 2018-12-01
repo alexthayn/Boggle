@@ -1,10 +1,11 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Boggle.Shared.Models
 {
-    public class GameBoard
+    public class GameBoard : ObservableObject
     {
         private const int GRIDSIZE = 4;
         private Random rand = new Random();
@@ -32,13 +33,15 @@ namespace Boggle.Shared.Models
         {
             GameDice = new List<BoggleDie>() { DIE0, DIE1, DIE2, DIE3, DIE4, DIE5, DIE6, DIE7,
                                               DIE8, DIE9, DIE10, DIE11, DIE12, DIE13, DIE14, DIE15 };
+            GameGrid = new string[GRIDSIZE][];
             GameGrid[0] = new string[GRIDSIZE];
             GameGrid[1] = new string[GRIDSIZE];
             GameGrid[2] = new string[GRIDSIZE];
             GameGrid[3] = new string[GRIDSIZE];
         }
 
-        public string[][] GameGrid = new string[GRIDSIZE][];
+        private string[][] _gameGrid;
+        public string[][] GameGrid { get => _gameGrid; set => Set(ref _gameGrid, value); }
 
         public void ShakeDice()
         {

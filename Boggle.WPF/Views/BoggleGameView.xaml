@@ -9,6 +9,29 @@
              d:DesignHeight="600" d:DesignWidth="800"
              FontWeight="Light"
              FontSize="14">
+    <!--<UserControl.InputBindings>
+        <KeyBinding Command="{Binding SubmitGuessCommand}"
+                    Gesture="Enter"
+                    Key="Return"/>
+    </UserControl.InputBindings>-->
+    <UserControl.Resources>
+        <Style TargetType="Label"
+               x:Key="DiceStyle">
+            <Setter Property="FontSize" Value="50"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Border"
+               x:Key="DiceBorder">
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="DodgerBlue"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        </Style>
+    </UserControl.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top"
               Background="White">
@@ -34,153 +57,234 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            
-            <!--Timer Display-->
-            <StackPanel Orientation="Horizontal"
-                        Margin="3">
-                <Label Content="Time Left: "/>
-                <Label Content="{Binding TimeLeft}"/>
-            </StackPanel>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="2.5*"/>
+            </Grid.ColumnDefinitions>              
             
             <!--Word Count Display-->
             <StackPanel Orientation="Horizontal"
                         Margin="3"
-                        Grid.Row="1">
-                <Label Content="Word Count: "
-                       />
-                <Label Content="{Binding WordCount}"/>
+                        HorizontalAlignment="Center">
+                <Label Content="Word Count = "
+                       FontSize="24"/>
+                <Label Content="{Binding TheGame.WordCount}"
+                       FontSize="24"/>
             </StackPanel>
 
-            <!--Score Display-->
-            <DockPanel Grid.Column="2"
-                       Grid.RowSpan="2"
-                       VerticalAlignment="Center">
-                <Label Content="{Binding Score}"
-                       FontSize="24"
-                       Width="75"
-                       DockPanel.Dock="Right"/>
-                <Label Content="Score: "
-                       FontSize="24"
-                       DockPanel.Dock="Right"
-                       Width="75"/>
-                <Label Content="BOGGLE!"
-                       HorizontalAlignment="Center"
-                       FontSize="40"
-                       Foreground="DodgerBlue"/>
-            </DockPanel>
+            
+            <StackPanel Orientation="Horizontal"
+                        Grid.Column="2"
+                        HorizontalAlignment="Center">
+                <Button Content="New Game"
+                        Command="{Binding NewGameCommand}"                 
+                        Background="White"
+                        BorderBrush="DodgerBlue"
+                        BorderThickness="4"
+                        Width="100"
+                        Margin="20,5"/>
+                <Button Content="End Game"
+                        Command="{Binding EndGameCommand}"
+                        Background="White"
+                        BorderBrush="DodgerBlue"
+                        BorderThickness="4"
+                        Width="100"
+                        Margin="20,5"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1"
+                        Grid.Column="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        DataContext="{Binding TheGame}">
+                <!--Score Display-->
+                <StackPanel Orientation="Horizontal"
+                            MinWidth ="200">
+                    <Label Content="Score: "
+                           FontSize="24"
+                           Width="75"/>
+                    <Label Content="{Binding Score}"
+                           FontSize="24"
+                           Width="75"
+                           DockPanel.Dock="Right"/>
+                </StackPanel>
+
+                <!--Timer Display-->
+                <StackPanel Orientation="Horizontal"
+                            MinWidth="200">
+                    <Label Content="Time Left: "
+                       FontSize="24"/>
+                    <Label Content="{Binding RemainingTime.Minutes}"
+                       FontSize="24"/>
+                    <Label Content=":"
+                       Margin="-7,0"
+                       FontSize="24"/>
+                    <Label Content="{Binding RemainingTime.Seconds}"
+                       FontSize="24"/>                    
+                </StackPanel>
+            </StackPanel>
 
             <!--Previously Guessed Words-->
-            <ScrollViewer Grid.Row="3"
+            <ScrollViewer Grid.Row="1"
+                          Grid.RowSpan="4"
                           extensionProperties:ScrollViewerExtensions.AlwaysScrollToEnd="True"
                           Background="#d1e8ff"
-                          Margin="10"
+                          Margin="10"          
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled">
-                <ItemsControl ItemsSource="{Binding ListOfGuesses}"
-                              BorderBrush="DodgerBlue"
-                              BorderThickness="2">
+                <ItemsControl ItemsSource="{Binding TheGame.ListOfGuesses}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding}"
+                            <TextBlock Text="{Binding Guess}"                                      
                                        HorizontalAlignment="Center"
                                        Margin="0,2"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
+
+            <!--User input-->
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        Margin="0,0,0,8"
+                        HorizontalAlignment="Center">
+                <TextBox FontSize="16"
+                         Text="{Binding UserGuess, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="10,0"
+                         MinWidth="375"
+                         MinHeight="30"
+                         VerticalAlignment="Center">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding SubmitGuessCommand}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button Content="Submit Guess"
+                        Command="{Binding SubmitGuessCommand}"
+                        Background="White"
+                        BorderBrush="DodgerBlue"
+                        BorderThickness="4"
+                        Margin="1,0"
+                        Padding="12,0"/>
+            </StackPanel>
             
             <!--Game Board-->
             <Grid DataContext="{Binding TheGame}"
                   Grid.Column="2"
-                  Grid.Row="3">
+                  Grid.Row="3"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="0"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="80"/>
                 </Grid.RowDefinitions>
+
                 <!--Letter Dice 4x4 grid-->
-                <TextBlock Text="{Binding Row1[0]}"
-                           FontSize="48"/>
-                <TextBlock Text="{Binding Row1[1]}"
-                           Grid.Column="1"
-                           FontSize="48"/>
-                <TextBlock Text="{Binding Row1[2]}"
-                           Grid.Column="2"
-                           FontSize="48"/>
-                <TextBlock Text="{Binding Row1[3]}"
-                           Grid.Column="3"
-                           FontSize="48"/>
-                
-                <TextBlock Text="{Binding Row2[0]}"
-                           FontSize="48"
-                           Grid.Row="1"/>
-                <TextBlock Text="{Binding Row2[1]}"
-                           Grid.Column="1"
-                           Grid.Row="1"
-                           FontSize="48"/>
-                <TextBlock Text="{Binding Row2[2]}"
-                           Grid.Column="2"
-                           Grid.Row="1"
-                           FontSize="48"/>
-                <TextBlock Text="{Binding Row2[3]}"
-                           Grid.Column="3"
-                           Grid.Row="1"
-                           FontSize="48"/>
+                <Border Style="{StaticResource DiceBorder}"                        
+                       Grid.Row="1">
+                    <Label Content="{Binding Row1[0]}"
+                           Style="{StaticResource DiceStyle}"/>
+                </Border>
+                <Border Style="{StaticResource DiceBorder}"                        
+                        Grid.Column="1"
+                        Grid.Row="1">
+                    <Label Content="{Binding Row1[1]}"                      
+                           Style="{StaticResource DiceStyle}"/>
+                </Border>
+                <Border Style="{StaticResource DiceBorder}"                        
+                        Grid.Column="2"
+                        Grid.Row="1">
+                    <Label Content="{Binding Row1[2]}"                       
+                           Style="{StaticResource DiceStyle}"/>
+                </Border>
+                <Border Style="{StaticResource DiceBorder}"                        
+                        Grid.Column="3"
+                        Grid.Row="1">
+                    <Label Content="{Binding Row1[3]}"
+                       Style="{StaticResource DiceStyle}"/>
+                </Border>
 
-                <TextBlock Text="{Binding Row3[0]}"
-                           FontSize="48"
-                           Grid.Row="2"/>
-                <TextBlock Text="{Binding Row3[1]}"
-                           Grid.Column="1"
-                           Grid.Row="2"
-                           FontSize="48"/>
-                <TextBlock Text="{Binding Row3[2]}"
-                           Grid.Column="2"
-                           Grid.Row="2"
-                           FontSize="48"/>
-                <TextBlock Text="{Binding Row3[3]}"
-                           Grid.Column="3"
-                           Grid.Row="2"
-                           FontSize="48"/>
+                <Border Style="{StaticResource DiceBorder}"                        
+                        Grid.Row="2" >
+                    <Label Content="{Binding Row2[0]}"
+                       Style="{StaticResource DiceStyle}"/>
+                </Border>
+                <Border Style="{StaticResource DiceBorder}"                        
+                        Grid.Row="2"
+                        Grid.Column="1">
+                    <Label Content="{Binding Row2[1]}"
+                       Style="{StaticResource DiceStyle}"/>
+                </Border>
+                <Border Style="{StaticResource DiceBorder}"                        
+                        Grid.Row="2"
+                        Grid.Column="2">
+                    <Label Content="{Binding Row2[2]}"
+                           Style="{StaticResource DiceStyle}"/>
+                </Border>
+                <Border Style="{StaticResource DiceBorder}"                        
+                        Grid.Row="2"
+                        Grid.Column="3">
+                    <Label Content="{Binding Row2[3]}"
+                           Style="{StaticResource DiceStyle}"/>
+                </Border>
 
-                <TextBlock Text="{Binding Row4[0]}"
-                           FontSize="48"
-                           Grid.Row="3"/>
-                <TextBlock Text="{Binding Row4[1]}"
-                           Grid.Column="1"
-                           Grid.Row="3"
-                           FontSize="48"/>
-                <TextBlock Text="{Binding Row4[2]}"
-                           Grid.Column="2"
-                           Grid.Row="3"
-                           FontSize="48"/>
-                <TextBlock Text="{Binding Row4[3]}"
-                           Grid.Column="3"
-                           Grid.Row="3"
-                           FontSize="48"/>
+                <Border Style="{StaticResource DiceBorder}"                        
+                        Grid.Row="3">
+                    <Label Content="{Binding Row3[0]}"
+                           Style="{StaticResource DiceStyle}"/>
+                </Border>
+                <Border Style="{StaticResource DiceBorder}"                        
+                        Grid.Row="3"
+                        Grid.Column="1">
+                    <Label Content="{Binding Row3[1]}"
+                           Style="{StaticResource DiceStyle}"/>
+                </Border>
+                <Border Style="{StaticResource DiceBorder}"                        
+                        Grid.Row="3"
+                        Grid.Column="2">
+                    <Label Content="{Binding Row3[2]}"
+                           Style="{StaticResource DiceStyle}"/>
+                </Border>
+                <Border Style="{StaticResource DiceBorder}"                        
+                        Grid.Row="3"
+                        Grid.Column="3">
+                    <Label Content="{Binding Row3[3]}"
+                           Style="{StaticResource DiceStyle}"/>
+                </Border>
+
+                <Border Style="{StaticResource DiceBorder}"                        
+                        Grid.Row="4">
+                    <Label Content="{Binding Row4[0]}"
+                           Style="{StaticResource DiceStyle}"/>
+                </Border>
+                <Border Style="{StaticResource DiceBorder}"                        
+                        Grid.Row="4"
+                        Grid.Column="1">
+                    <Label Content="{Binding Row4[1]}"
+                           Style="{StaticResource DiceStyle}"/>
+                </Border>
+                <Border Style="{StaticResource DiceBorder}"                        
+                        Grid.Row="4"
+                        Grid.Column="2">
+                    <Label Content="{Binding Row4[2]}"
+                           Style="{StaticResource DiceStyle}"/>
+                </Border>
+                <Border Style="{StaticResource DiceBorder}"                        
+                        Grid.Row="4"
+                        Grid.Column="3">
+                    <Label Content="{Binding Row4[3]}"
+                           Style="{StaticResource DiceStyle}"/>
+                </Border>
             </Grid>
-            
-            <!--User input-->
-            <Label Content="Enter Guess: "
-                   FontSize="16"
-                   Margin="50,0"
-                   Grid.Row="4"/>
-            <TextBox Grid.Row="4" 
-                     FontSize="16"
-                     Margin="10,0"
-                     VerticalAlignment="Center"
-                     Grid.Column="2"/>
         </Grid>
     </DockPanel>
 </UserControl>

@@ -14,11 +14,13 @@ namespace Boggle.Shared.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-
         private readonly IDataService dataService;
+
         private object _childViewModel;
         public object ChildViewModel { get => _childViewModel; set => Set(ref _childViewModel, value); }
-        public BoggleGame TheGame;
+
+        private IBoggleGame _theGame;
+        public IBoggleGame TheGame { get => _theGame; set => Set(ref _theGame, value); }
 
         private ObservableObject _previousViewModel;
         public ObservableObject PreviousViewModel { get => _previousViewModel; set => Set(ref _previousViewModel, value); }
@@ -37,12 +39,19 @@ namespace Boggle.Shared.ViewModels
 
         public MainViewModel()
         {
-            TheGame = new BoggleGame();
+            TheGame = new BoggleGame("new user");
             this.dataService = new SqliteDataService("Boggle.db");
-            MainScreenViewModel = new MainScreenViewModel(this, TheGame, dataService);
+            this.dataService.AddNewPlayer(new Player { Name = "Spongebob" });
+            this.dataService.AddNewPlayer(new Player { Name = "Patrick" });
+            this.dataService.AddNewPlayer(new Player { Name = "Squidward" });
+            this.dataService.AddNewGame(new Game { PlayerId = 3, Score = 10000 });
+            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 1423 });
+            this.dataService.AddNewGame(new Game { PlayerId = 1, Score = 4554 });
+            this.dataService.AddNewGame(new Game { PlayerId = 2, Score = 89743 });
+            MainScreenViewModel = new MainScreenViewModel(this, dataService);
             HowToPlayViewModel = new HowToPlayViewModel(this);
             HighScoresViewModel = new HighScoresViewModel(this, dataService);
-            BoggleGameViewModel = new BoggleGameViewModel(this, TheGame, dataService);
+            BoggleGameViewModel = new BoggleGameViewModel(this, dataService);
             ChildViewModel = MainScreenViewModel;
         }
     }

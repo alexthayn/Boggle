@@ -14,34 +14,22 @@ namespace Boggle.Shared.ViewModels
         private IBoggleGame _theGame;
         public IBoggleGame TheGame { get => _theGame; set => Set(ref _theGame, value); }
 
-        public List<string> _listOfGuesses;
-        public List<string> ListOfGuesses
-        {
-            get => _listOfGuesses;
-            set => Set(ref _listOfGuesses, value);
-        }
+        private string _userGuess;
+        public string UserGuess { get => _userGuess; set => Set(ref _userGuess, value); }
 
         public string Username;
 
-        public BoggleGameViewModel(MainViewModel mainViewModel, IBoggleGame boggleGame, IDataService dataService)
+        public BoggleGameViewModel(MainViewModel mainViewModel, IDataService dataService)
         {
+            UserGuess = "";            
             mainView = mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
-            TheGame = boggleGame;
+            TheGame = mainView.TheGame;
             this.dataService = dataService;
-            //Dummy data for testing UI remove later*******************************************************************
-            ListOfGuesses = new List<string>() { "hello", "goodbye", "garden","end","begun","area","bear","thick",
-                                                    "attention","swept","planned","evidence","salt","liquid",
-                                                    "unit","climate","war","pan","twelve","shine",
-                                                    "out","again","arrangement","believed","down","energy",
-                                                    "family","felt","pen","feet","grass","bone",
-                                                    "trouble","too","same","wolf","grass","book",
-                                                    "unit","fuel","flag","health","though","heat" };
         }
 
-        public BoggleGameViewModel(MainViewModel mainViewModel, IBoggleGame boggleGame, IDataService dataService, string username) :this(mainViewModel,boggleGame,dataService)
+        public BoggleGameViewModel(MainViewModel mainViewModel, IDataService dataService, string username) :this(mainViewModel,dataService)
         {
             Username = username;
-            TheGame.NewGame(Username);
         }
 
         private RelayCommand _backToMain;
@@ -73,6 +61,8 @@ namespace Boggle.Shared.ViewModels
             () =>
             {
                 //Ask user the confirm
+                mainView.TheGame = new BoggleGame(Username);
+                mainView.BoggleGameViewModel = new BoggleGameViewModel(mainView, dataService);
                 mainView.ChildViewModel = mainView.BoggleGameViewModel;
             }));
 
@@ -84,5 +74,25 @@ namespace Boggle.Shared.ViewModels
                 mainView.ChildViewModel = mainView.MainScreenViewModel;
                 //clean up game here
             }));
+
+        private RelayCommand _submitGuessCommand;
+        public RelayCommand SubmitGuessCommand => _submitGuessCommand ?? (_submitGuessCommand = new RelayCommand(
+            () =>
+            {
+                if (UserGuess != "")
+                {
+                    TheGame.SubmitGuess(UserGuess);
+                    UserGuess = "";
+                }
+            }));
+
+        //private RelayCommand _submitGuessCommand;
+        //public RelayCommand SubmitGuessCommand => _submitGuessCommand ?? (_submitGuessCommand = new RelayCommand(
+        //    () =>
+        //    {
+        //        //Ask user the confirm
+        //        if (UserGuess?.Equals("");
+        //        //clean up game here
+        //    }));
     }
 }

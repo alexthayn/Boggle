@@ -2,11 +2,8 @@
 using Boggle.Shared.ViewModels;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace UnitTests
+namespace UnitTests.ViewModelTests
 {
     [TestFixture]
     public class MainScreenViewModelTests
@@ -16,7 +13,7 @@ namespace UnitTests
         [SetUp]
         public void Setup()
         {
-            vm = new MainScreenViewModel(new MainViewModel(), new Mock<IBoggleGame>().Object, new Mock<IDataService>().Object);
+            vm = new MainScreenViewModel(new MainViewModel(), new Mock<IDataService>().Object);
         }
 
         [Test]

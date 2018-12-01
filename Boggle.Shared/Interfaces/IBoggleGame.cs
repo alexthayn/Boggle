@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Boggle.Shared.Models;
+using System.Collections.ObjectModel;
 
 namespace Boggle.Shared.Interfaces
 {
     public interface IBoggleGame
     {
+        ObservableCollection<PlayerGuess> ListOfGuesses { get; }
+
         int GetScore();
-        void NewGame(string username);
-        int CalculateWordScore(string word);
+        void SubmitGuess(string word);
     }
 }
