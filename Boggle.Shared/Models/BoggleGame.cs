@@ -43,23 +43,28 @@ namespace Boggle.Shared.Models
             this.StartGame(username);
         }
 
-        public int CalculateWordScore(string Word)
+        public int CalculateWordScore(PlayerGuess Word)
         {
             //I need to handle characters other than alphabetical ones so they don't count towards the score
-            int wordLength = Word.Count(w => char.IsLetter(w));
-            if(wordLength < 3)
-                return 0;
-            
-            switch (wordLength)
+            bool isGuessValid = CheckPlayerGuessIsValid(Word.Guess);
+            if (isGuessValid)
             {
-                case 3: return 1;
-                case 4: return 1;
-                case 5: return 2;
-                case 6: return 3;
-                case 7: return 4;
-                //return a score of 11 points if the length of the word is greater than 8 letters
-                default: return 11;
-            }            
+                int wordLength = Word.Guess.Count(w => char.IsLetter(w));
+                if (wordLength < 3)
+                    return 0;
+
+                switch (wordLength)
+                {
+                    case 3: return 1;
+                    case 4: return 1;
+                    case 5: return 2;
+                    case 6: return 3;
+                    case 7: return 4;
+                    //return a score of 11 points if the length of the word is greater than 8 letters
+                    default: return 11;
+                }
+            }
+            return 0;
         }
 
         private void StartGame(string username)
@@ -77,6 +82,11 @@ namespace Boggle.Shared.Models
         public int GetScore()
         {
             return Score;
+        }
+
+        private bool CheckPlayerGuessIsValid(string guess)
+        {
+            throw new NotImplementedException();
         }
 
         private async void StartCountdown()

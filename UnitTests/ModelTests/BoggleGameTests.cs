@@ -1,8 +1,5 @@
 ﻿using Boggle.Shared.Models;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace UnitTests
 {
@@ -27,7 +24,8 @@ namespace UnitTests
         }
 
         [TestCase("pig", 1)]
-        [TestCase("cat", 1)]        
+        [TestCase("cat", 1)]
+        [TestCase("Hi!", 0)]
         public void Test3LetterScoreIsCalculatedCorrectly(string word, int expectedScore)
         {
             int scoreReturned = BoggleGame.CalculateWordScore(word);
@@ -37,7 +35,6 @@ namespace UnitTests
         [TestCase("bear", 1)]
         [TestCase("home", 1)]
         [TestCase("four", 1)]
-        [TestCase]
         public void Test4LetterScoreIsCalculatedCorrectly(string word, int expectedScore)
         {
             int scoreReturned = BoggleGame.CalculateWordScore(word); 
