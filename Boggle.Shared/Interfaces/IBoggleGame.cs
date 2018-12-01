@@ -8,6 +8,6 @@ namespace Boggle.Shared.Interfaces
     public interface IBoggleGame
     {
         int GetScore();
-        int CalculateWordScore(PlayerGuess word);
+        int CalculateWordScore(string word);
     }
 }

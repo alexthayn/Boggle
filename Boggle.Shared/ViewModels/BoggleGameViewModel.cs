@@ -14,13 +14,6 @@ namespace Boggle.Shared.ViewModels
         private IBoggleGame _theGame;
         public IBoggleGame TheGame { get => _theGame; set => Set(ref _theGame, value); }
 
-        private List<PlayerGuess> _listOfGuesses;
-        public List<PlayerGuess> ListOfGuesses
-        {
-            get => _listOfGuesses;
-            set => Set(ref _listOfGuesses, value);
-        }
-
         private string _userGuess;
         public string UserGuess { get => _userGuess; set => Set(ref _userGuess, value); }
 
@@ -28,18 +21,10 @@ namespace Boggle.Shared.ViewModels
 
         public BoggleGameViewModel(MainViewModel mainViewModel, IDataService dataService)
         {
+            UserGuess = "";            
             mainView = mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
             TheGame = mainView.TheGame;
             this.dataService = dataService;
-            //Dummy data for testing UI remove later*******************************************************************
-            //ListOfGuesses = new List<string>() { "hello", "goodbye", "garden","end","begun","area","bear","thick",
-            //                                        "attention","swept","planned","evidence","salt","liquid",
-            //                                        "unit","climate","war","pan","twelve","shine",
-            //                                        "out","again","arrangement","believed","down","energy",
-            //                                        "family","felt","pen","feet","grass","bone",
-            //                                        "trouble","too","same","wolf","grass","book",
-            //                                        "unit","fuel","flag","health","though","heat" };
-            
         }
 
         public BoggleGameViewModel(MainViewModel mainViewModel, IDataService dataService, string username) :this(mainViewModel,dataService)
@@ -90,11 +75,24 @@ namespace Boggle.Shared.ViewModels
                 //clean up game here
             }));
 
-        private RelayCommand _updateUserGuessOnEnterCommand;
-        public RelayCommand UpdateUserGuessOnEnterCommand(object parameter) => _updateUserGuessOnEnterCommand ?? (_updateUserGuessOnEnterCommand = new RelayCommand(
+        private RelayCommand _submitGuessCommand;
+        public RelayCommand SubmitGuessCommand => _submitGuessCommand ?? (_submitGuessCommand = new RelayCommand(
             () =>
             {
-                
+                if (UserGuess != "")
+                {
+                    TheGame.CalculateWordScore(UserGuess);
+                    UserGuess = "";
+                }
             }));
+
+        //private RelayCommand _submitGuessCommand;
+        //public RelayCommand SubmitGuessCommand => _submitGuessCommand ?? (_submitGuessCommand = new RelayCommand(
+        //    () =>
+        //    {
+        //        //Ask user the confirm
+        //        if (UserGuess?.Equals("");
+        //        //clean up game here
+        //    }));
     }
 }

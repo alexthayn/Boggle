@@ -1,7 +1,7 @@
 ﻿using Boggle.Shared.Models;
 using NUnit.Framework;
 
-namespace UnitTests
+namespace UnitTests.ModelTests
 {
     [TestFixture]
     public class BoggleGameTests

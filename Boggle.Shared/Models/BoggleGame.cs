@@ -2,15 +2,13 @@
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Boggle.Shared.Models
 {
+
     public class BoggleGame : ObservableObject, IBoggleGame
     {
         public GameBoard GameBoard;
@@ -34,22 +32,31 @@ namespace Boggle.Shared.Models
         private int _wordCount;
         public int WordCount { get => _wordCount; set => Set(ref _wordCount, value); }
 
+        private ObservableCollection<PlayerGuess> _listOfGuesses;
+        public ObservableCollection<PlayerGuess> ListOfGuesses { get => _listOfGuesses; set => Set(ref _listOfGuesses, value); }
+
         private string _username;
         public string Username { get => _username; set => Set(ref _username, value); }
 
         public BoggleGame(string username)
         {
             GameBoard = new GameBoard();
-            this.StartGame(username);
+            ListOfGuesses = new ObservableCollection<PlayerGuess>();
+            WordCount = 0;
+            Score = 0;
+            Username = username;
+            StartGame();
         }
 
-        public int CalculateWordScore(PlayerGuess Word)
+        public int CalculateWordScore(string Word)
         {
-            //I need to handle characters other than alphabetical ones so they don't count towards the score
-            bool isGuessValid = CheckPlayerGuessIsValid(Word.Guess);
+            //I need to handle characters other than alphabetical ones so they don't count towards the score            
+            bool isGuessValid = CheckPlayerGuessIsValid(Word);
+            ListOfGuesses.Add(new PlayerGuess() { Guess = Word, IsValidGuess = isGuessValid });
+            
             if (isGuessValid)
             {
-                int wordLength = Word.Guess.Count(w => char.IsLetter(w));
+                int wordLength = Word.Count(w => char.IsLetter(w));
                 if (wordLength < 3)
                     return 0;
 
@@ -67,9 +74,8 @@ namespace Boggle.Shared.Models
             return 0;
         }
 
-        private void StartGame(string username)
+        private void StartGame()
         {
-            Username = username;
             GameBoard.ShakeDice();
             RemainingTime = new TimeSpan();
             StartCountdown();
@@ -86,7 +92,8 @@ namespace Boggle.Shared.Models
 
         private bool CheckPlayerGuessIsValid(string guess)
         {
-            throw new NotImplementedException();
+            /********************************************************/
+            return true;
         }
 
         private async void StartCountdown()
@@ -107,8 +114,7 @@ namespace Boggle.Shared.Models
                 remainingTime = endTime - DateTime.UtcNow;
             }
 
-            RemainingTime = TimeSpan.Zero;  
-            
+            RemainingTime = TimeSpan.Zero;             
         }
     }
 }

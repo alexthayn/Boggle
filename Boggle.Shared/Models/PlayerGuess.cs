@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using GalaSoft.MvvmLight;
 
 namespace Boggle.Shared.Models
 {
-    public class PlayerGuess
+    public class PlayerGuess : ObservableObject
     {
-        public string Guess;
-        public bool IsValidGuess;
+        private string _guess;
+        public string Guess { get => _guess; set => Set(ref _guess, value); }
+
+        private bool _isValidGuess;
+        public bool IsValidGuess { get => _isValidGuess; set => Set(ref _isValidGuess, value); }
     }
 }

@@ -3,10 +3,8 @@ using Boggle.Shared.Models;
 using Boggle.Shared.ViewModels;
 using Moq;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace UnitTests.ViewModelTests
 {
