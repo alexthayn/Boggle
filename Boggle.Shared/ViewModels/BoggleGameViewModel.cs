@@ -14,8 +14,8 @@ namespace Boggle.Shared.ViewModels
         private IBoggleGame _theGame;
         public IBoggleGame TheGame { get => _theGame; set => Set(ref _theGame, value); }
 
-        private List<string> _listOfGuesses;
-        public List<string> ListOfGuesses
+        private List<PlayerGuess> _listOfGuesses;
+        public List<PlayerGuess> ListOfGuesses
         {
             get => _listOfGuesses;
             set => Set(ref _listOfGuesses, value);
@@ -26,10 +26,10 @@ namespace Boggle.Shared.ViewModels
 
         public string Username;
 
-        public BoggleGameViewModel(MainViewModel mainViewModel, IBoggleGame boggleGame, IDataService dataService)
+        public BoggleGameViewModel(MainViewModel mainViewModel, IDataService dataService)
         {
             mainView = mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
-            TheGame = boggleGame;
+            TheGame = mainView.TheGame;
             this.dataService = dataService;
             //Dummy data for testing UI remove later*******************************************************************
             //ListOfGuesses = new List<string>() { "hello", "goodbye", "garden","end","begun","area","bear","thick",
@@ -42,10 +42,9 @@ namespace Boggle.Shared.ViewModels
             
         }
 
-        public BoggleGameViewModel(MainViewModel mainViewModel, IBoggleGame boggleGame, IDataService dataService, string username) :this(mainViewModel,boggleGame,dataService)
+        public BoggleGameViewModel(MainViewModel mainViewModel, IDataService dataService, string username) :this(mainViewModel,dataService)
         {
             Username = username;
-            TheGame.NewGame(Username);
         }
 
         private RelayCommand _backToMain;
@@ -77,9 +76,8 @@ namespace Boggle.Shared.ViewModels
             () =>
             {
                 //Ask user the confirm
-                var newGame = new BoggleGame();
-                newGame.NewGame(Username);
-                mainView.BoggleGameViewModel = new BoggleGameViewModel(mainView, newGame, dataService);
+                mainView.TheGame = new BoggleGame(Username);
+                mainView.BoggleGameViewModel = new BoggleGameViewModel(mainView, dataService);
                 mainView.ChildViewModel = mainView.BoggleGameViewModel;
             }));
 

@@ -14,12 +14,12 @@ namespace UnitTests
         [SetUp]
         public void Setup()
         {
-            BoggleGame = new BoggleGame();
-            BoggleGame.NewGame("FakeGame");
+            BoggleGame = new BoggleGame("FakeGame");
         }
 
         [TestCase("Hi", 0)]
         [TestCase("we", 0)]
+        [TestCase(".-", 0)]
         public void Test2LetterScoreIsCalculatedCorrectly(string word, int expectedScore)
         {
             int scoreReturned = BoggleGame.CalculateWordScore(word);
@@ -27,7 +27,7 @@ namespace UnitTests
         }
 
         [TestCase("pig", 1)]
-        [TestCase("cat", 1)]
+        [TestCase("cat", 1)]        
         public void Test3LetterScoreIsCalculatedCorrectly(string word, int expectedScore)
         {
             int scoreReturned = BoggleGame.CalculateWordScore(word);
@@ -37,9 +37,10 @@ namespace UnitTests
         [TestCase("bear", 1)]
         [TestCase("home", 1)]
         [TestCase("four", 1)]
+        [TestCase]
         public void Test4LetterScoreIsCalculatedCorrectly(string word, int expectedScore)
         {
-            int scoreReturned = BoggleGame.CalculateWordScore(word);
+            int scoreReturned = BoggleGame.CalculateWordScore(word); 
             Assert.AreEqual(expectedScore, scoreReturned);
         }
 

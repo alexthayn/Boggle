@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,18 +37,20 @@ namespace Boggle.Shared.Models
         private string _username;
         public string Username { get => _username; set => Set(ref _username, value); }
 
-        public BoggleGame()
+        public BoggleGame(string username)
         {
             GameBoard = new GameBoard();
+            this.StartGame(username);
         }
 
         public int CalculateWordScore(string Word)
         {
             //I need to handle characters other than alphabetical ones so they don't count towards the score
-            if(Word.Length < 3)
+            int wordLength = Word.Count(w => char.IsLetter(w));
+            if(wordLength < 3)
                 return 0;
             
-            switch (Word.Length)
+            switch (wordLength)
             {
                 case 3: return 1;
                 case 4: return 1;
@@ -59,10 +62,11 @@ namespace Boggle.Shared.Models
             }            
         }
 
-        public void NewGame(string username)
+        private void StartGame(string username)
         {
             Username = username;
             GameBoard.ShakeDice();
+            RemainingTime = new TimeSpan();
             StartCountdown();
             Row1 = GameBoard.GameGrid[0];
             Row2 = GameBoard.GameGrid[1];

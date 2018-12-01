@@ -16,7 +16,7 @@ namespace UnitTests
         [SetUp]
         public void Setup()
         {
-            vm = new MainScreenViewModel(new MainViewModel(), new Mock<IBoggleGame>().Object, new Mock<IDataService>().Object);
+            vm = new MainScreenViewModel(new MainViewModel(), new Mock<IDataService>().Object);
         }
 
         [Test]

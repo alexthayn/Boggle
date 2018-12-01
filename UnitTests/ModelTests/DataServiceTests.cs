@@ -33,7 +33,7 @@ namespace UnitTests
         [Test]
         public void TestDataServiceGetPlayers()
         {           
-            var vm = new MainScreenViewModel(new MainViewModel(), new Mock<IBoggleGame>().Object, dataServiceMock.Object);
+            var vm = new MainScreenViewModel(new MainViewModel(), dataServiceMock.Object);
 
             Assert.AreEqual(vm.Players[0].Name, "Superman");
         }
@@ -41,7 +41,7 @@ namespace UnitTests
         [Test]
         public void TestDataServiceGetGames()
         {
-            var vm = new MainScreenViewModel(new MainViewModel(), new Mock<IBoggleGame>().Object, dataServiceMock.Object);
+            var vm = new MainScreenViewModel(new MainViewModel(), dataServiceMock.Object);
 
             Assert.AreEqual(vm.GamesList[0].Score, 10294);
         }

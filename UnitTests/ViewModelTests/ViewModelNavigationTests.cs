@@ -20,8 +20,8 @@ namespace UnitTests.ViewModelTests
         public void Setup()
         {
             mvm = new MainViewModel();
-            msvm = new MainScreenViewModel(mvm, new BoggleGame(), new Mock<IDataService>().Object);
-            bgvm = new BoggleGameViewModel(mvm, new BoggleGame(), new Mock<IDataService>().Object);
+            msvm = new MainScreenViewModel(mvm, new Mock<IDataService>().Object);
+            bgvm = new BoggleGameViewModel(mvm, new Mock<IDataService>().Object);
         }
       
         // Main Screen Navigation        

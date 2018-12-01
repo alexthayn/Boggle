@@ -1,5 +1,6 @@
 ﻿using Boggle.Shared.DataModels;
 using Boggle.Shared.Interfaces;
+using Boggle.Shared.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -14,11 +15,11 @@ namespace Boggle.Shared.ViewModels
         private readonly MainViewModel mainView;
         private readonly IDataService dataService;
 
-        public MainScreenViewModel(MainViewModel mainViewModel, IBoggleGame boggleGame, IDataService dataService)
+        public MainScreenViewModel(MainViewModel mainViewModel, IDataService dataService)
         {
             mainView = mainViewModel;
             this.dataService = dataService;
-            TheGame = boggleGame;
+            TheGame = mainView.TheGame;
             Username = GetRandomUsername();
             GamesList = dataService.GetAllGames().ToList();
             Players = dataService.GetAllPlayers().ToList();
@@ -60,7 +61,8 @@ namespace Boggle.Shared.ViewModels
             () =>
             {
                 mainView.PreviousViewModel = this;
-                mainView.BoggleGameViewModel = new BoggleGameViewModel(mainView, TheGame, dataService, Username);
+                mainView.TheGame = new BoggleGame(Username);
+                mainView.BoggleGameViewModel = new BoggleGameViewModel(mainView, dataService, Username);
                 mainView.ChildViewModel = mainView.BoggleGameViewModel;
             }));
 
