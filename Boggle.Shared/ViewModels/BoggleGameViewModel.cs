@@ -81,7 +81,7 @@ namespace Boggle.Shared.ViewModels
             {
                 if (UserGuess != "")
                 {
-                    TheGame.CalculateWordScore(UserGuess);
+                    TheGame.SubmitGuess(UserGuess);
                     UserGuess = "";
                 }
             }));

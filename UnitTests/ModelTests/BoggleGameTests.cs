@@ -19,8 +19,8 @@ namespace UnitTests.ModelTests
         [TestCase(".-", 0)]
         public void Test2LetterScoreIsCalculatedCorrectly(string word, int expectedScore)
         {
-            int scoreReturned = BoggleGame.CalculateWordScore(word);
-            Assert.AreEqual(expectedScore, scoreReturned);
+            BoggleGame.SubmitGuess(word);
+            Assert.AreEqual(expectedScore, BoggleGame.Score);
         }
 
         [TestCase("pig", 1)]
@@ -28,8 +28,8 @@ namespace UnitTests.ModelTests
         [TestCase("Hi!", 0)]
         public void Test3LetterScoreIsCalculatedCorrectly(string word, int expectedScore)
         {
-            int scoreReturned = BoggleGame.CalculateWordScore(word);
-            Assert.AreEqual(expectedScore, scoreReturned);
+            BoggleGame.SubmitGuess(word);
+            Assert.AreEqual(expectedScore, BoggleGame.Score);
         }
 
         [TestCase("bear", 1)]
@@ -37,48 +37,48 @@ namespace UnitTests.ModelTests
         [TestCase("four", 1)]
         public void Test4LetterScoreIsCalculatedCorrectly(string word, int expectedScore)
         {
-            int scoreReturned = BoggleGame.CalculateWordScore(word); 
-            Assert.AreEqual(expectedScore, scoreReturned);
+            BoggleGame.SubmitGuess(word);
+            Assert.AreEqual(expectedScore, BoggleGame.Score);
         }
 
         [TestCase("start", 2)]
         [TestCase("liter", 2)]
         public void Test5LetterScoreIsCalculatedCorrectly(string word, int expectedScore)
         {
-            int scoreReturned = BoggleGame.CalculateWordScore(word);
-            Assert.AreEqual(expectedScore, scoreReturned);
+            BoggleGame.SubmitGuess(word);
+            Assert.AreEqual(expectedScore, BoggleGame.Score);
         }
 
         [TestCase("boring", 3)]
         [TestCase("letter", 3)]
         public void Test6LettersScoreIsCalculatedCorrectly(string word, int expectedScore)
         {
-            int scoreReturned = BoggleGame.CalculateWordScore(word);
-            Assert.AreEqual(expectedScore, scoreReturned);
+            BoggleGame.SubmitGuess(word);
+            Assert.AreEqual(expectedScore, BoggleGame.Score);
         }
 
         [TestCase("discuss", 4)]
         [TestCase("adapter", 4)]
         public void Test7LettersScoreIsCalculatedCorrectly(string word, int expectedScore)
         {
-            int scoreReturned = BoggleGame.CalculateWordScore(word);
-            Assert.AreEqual(expectedScore, scoreReturned);
+            BoggleGame.SubmitGuess(word);
+            Assert.AreEqual(expectedScore, BoggleGame.Score);
         }
 
         [TestCase("dictionary", 11)]
         [TestCase("solution", 11)]
         public void Test8LettersScoreIsCalulatedCorrectly(string word, int expectedScore)
         {
-            int scoreReturned = BoggleGame.CalculateWordScore(word);
-            Assert.AreEqual(11, scoreReturned);
+            BoggleGame.SubmitGuess(word);
+            Assert.AreEqual(expectedScore, BoggleGame.Score);
         }
 
         [TestCase("dictionaries", 11)]
         [TestCase("solutions", 11)]
         public void Test8PlusLettersScoreIsCalulatedCorrectly(string word, int expectedScore)
         {
-            int scoreReturned = BoggleGame.CalculateWordScore(word);
-            Assert.AreEqual(expectedScore, scoreReturned);
+            BoggleGame.SubmitGuess(word);
+            Assert.AreEqual(expectedScore, BoggleGame.Score);
         }        
 
         [Test]

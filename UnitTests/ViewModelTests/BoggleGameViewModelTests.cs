@@ -39,5 +39,22 @@ namespace UnitTests.ViewModelTests
 
             Assert.AreEqual("Second",mainVM.BoggleGameViewModel.Username);
         }
+
+        [Test]
+        public void TestSubmitGuessCommandClearsTextBox()
+        {
+            mainVM.BoggleGameViewModel.UserGuess = "MyGuess";
+            mainVM.BoggleGameViewModel.SubmitGuessCommand.Execute(null);
+            Assert.AreEqual("", mainVM.BoggleGameViewModel.UserGuess);
+        }
+
+        [Test]
+        public void TestSubmitGuessCommandAddGuessToListOfGuesses()
+        {
+            mainVM.BoggleGameViewModel.UserGuess = "cookies";
+            mainVM.BoggleGameViewModel.SubmitGuessCommand.Execute(null);
+            var Game = mainVM.TheGame;
+            Assert.AreEqual("cookies", Game.ListOfGuesses[0].Guess);
+        }
     }
 }

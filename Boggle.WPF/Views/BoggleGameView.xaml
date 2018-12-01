@@ -59,60 +59,74 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="3*"/>
-            </Grid.ColumnDefinitions>
-            
-            <!--Timer Display-->
-            <StackPanel Orientation="Horizontal"
-                        Margin="3"
-                        DataContext="{Binding TheGame}">
-                <Label Content="Time Left: "/>
-                <Label Content="{Binding RemainingTime.Minutes}"/>
-                <Label Content=":"
-                       Margin="-7,0"/>
-                <Label Content="{Binding RemainingTime.Seconds}"/>
-            </StackPanel>
+                <ColumnDefinition Width="2.5*"/>
+            </Grid.ColumnDefinitions>              
             
             <!--Word Count Display-->
             <StackPanel Orientation="Horizontal"
                         Margin="3"
-                        Grid.Row="1">
-                <Label Content="Word Count: "
-                       />
-                <Label Content="{Binding TheGame.WordCount}"/>
+                        HorizontalAlignment="Center">
+                <Label Content="Word Count = "
+                       FontSize="24"/>
+                <Label Content="{Binding TheGame.WordCount}"
+                       FontSize="24"/>
             </StackPanel>
 
-            <!--Score Display-->
-            <DockPanel Grid.Column="2"
-                       Grid.RowSpan="2"
-                       VerticalAlignment="Center">
-                <Label Content="{Binding TheGame.Score}"
-                       FontSize="24"
-                       Width="75"
-                       DockPanel.Dock="Right"/>
-                <Label Content="Score: "
-                       FontSize="24"
-                       DockPanel.Dock="Right"
-                       Width="75"/>
+            
+            <StackPanel Orientation="Horizontal"
+                        Grid.Column="2"
+                        HorizontalAlignment="Center">
                 <Button Content="New Game"
                         Command="{Binding NewGameCommand}"                 
                         Background="White"
                         BorderBrush="DodgerBlue"
                         BorderThickness="4"
-                        Width="150"
+                        Width="100"
                         Margin="20,5"/>
                 <Button Content="End Game"
                         Command="{Binding EndGameCommand}"
                         Background="White"
                         BorderBrush="DodgerBlue"
                         BorderThickness="4"
-                        Width="150"
+                        Width="100"
                         Margin="20,5"/>
-            </DockPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1"
+                        Grid.Column="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        DataContext="{Binding TheGame}">
+                <!--Score Display-->
+                <StackPanel Orientation="Horizontal"
+                            MinWidth ="200">
+                    <Label Content="Score: "
+                           FontSize="24"
+                           Width="75"/>
+                    <Label Content="{Binding Score}"
+                           FontSize="24"
+                           Width="75"
+                           DockPanel.Dock="Right"/>
+                </StackPanel>
+
+                <!--Timer Display-->
+                <StackPanel Orientation="Horizontal"
+                            MinWidth="200">
+                    <Label Content="Time Left: "
+                       FontSize="24"/>
+                    <Label Content="{Binding RemainingTime.Minutes}"
+                       FontSize="24"/>
+                    <Label Content=":"
+                       Margin="-7,0"
+                       FontSize="24"/>
+                    <Label Content="{Binding RemainingTime.Seconds}"
+                       FontSize="24"/>                    
+                </StackPanel>
+            </StackPanel>
 
             <!--Previously Guessed Words-->
-            <ScrollViewer Grid.Row="3"
-                          Grid.RowSpan="2"
+            <ScrollViewer Grid.Row="1"
+                          Grid.RowSpan="4"
                           extensionProperties:ScrollViewerExtensions.AlwaysScrollToEnd="True"
                           Background="#d1e8ff"
                           Margin="10"          
@@ -133,9 +147,8 @@
             <StackPanel Orientation="Horizontal"
                         Grid.Row="4"
                         Grid.Column="2"
-                        Margin="0,0,0,8">
-                <Label Content="Enter Guess: "
-                       FontSize="16"/>
+                        Margin="0,0,0,8"
+                        HorizontalAlignment="Center">
                 <TextBox FontSize="16"
                          Text="{Binding UserGuess, UpdateSourceTrigger=PropertyChanged}"
                          Margin="10,0"
@@ -146,13 +159,13 @@
                         <KeyBinding Key="Return" Command="{Binding SubmitGuessCommand}"/>
                     </TextBox.InputBindings>
                 </TextBox>
-                <Button Content="Submit"
+                <Button Content="Submit Guess"
                         Command="{Binding SubmitGuessCommand}"
                         Background="White"
                         BorderBrush="DodgerBlue"
                         BorderThickness="4"
                         Margin="1,0"
-                        Width="80"/>
+                        Padding="12,0"/>
             </StackPanel>
             
             <!--Game Board-->
