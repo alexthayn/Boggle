@@ -81,6 +81,18 @@ namespace UnitTests.ModelTests
             Assert.AreEqual(expectedScore, BoggleGame.Score);
         }        
 
+        [TestCase("two", 1)]
+        [TestCase("word", 1)]
+        [TestCase("three", 2)]
+        [TestCase("sevens", 3)]
+        [TestCase("duplication", 11)]
+        public void TestThatNoPointsAreAddedForDuplicateWords(string word, int expectedScore)
+        {
+            BoggleGame.SubmitGuess(word);
+            BoggleGame.SubmitGuess(word);
+            Assert.AreEqual(expectedScore, BoggleGame.Score);
+        }
+
         [Test]
         public void TestGameBoardRow0Column0IsSetCorrectly()
         {

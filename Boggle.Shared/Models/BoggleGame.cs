@@ -13,7 +13,7 @@ namespace Boggle.Shared.Models
     {
         public GameBoard GameBoard;
         private TimeSpan _remainingTime;
-        public TimeSpan RemainingTime { get => _remainingTime; set => Set(ref _remainingTime, value); }
+        public TimeSpan RemainingTime { get => _remainingTime; set => Set(ref _remainingTime, value); }        
 
         private string[] _row1;
         public string[] Row1 { get => _row1; set => Set(ref _row1, value); }
@@ -50,9 +50,16 @@ namespace Boggle.Shared.Models
 
         public void SubmitGuess(string Word)
         {
+           //Check if the user entered a duplicate guess
+           foreach(PlayerGuess g in ListOfGuesses)
+           {
+                if (g.Guess == Word)
+                    return;
+           }
             //I need to handle characters other than alphabetical ones so they don't count towards the score            
             bool isGuessValid = CheckPlayerGuessIsValid(Word);
             ListOfGuesses.Add(new PlayerGuess() { Guess = Word, IsValidGuess = isGuessValid });
+
             
             if (isGuessValid)
             {
