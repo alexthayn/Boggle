@@ -37,9 +37,13 @@ namespace Boggle.Shared.ViewModels
         private BoggleGameViewModel _boggleGameViewModel;
         public BoggleGameViewModel BoggleGameViewModel { get => _boggleGameViewModel; set => Set(ref _boggleGameViewModel, value); }
 
+        private double _gameTime;
+        public double GameTime { get => _gameTime; set => Set(ref _gameTime, value); }
+
         public MainViewModel()
         {
-            TheGame = new BoggleGame("new user");
+            GameTime = 0.05;
+            TheGame = new BoggleGame("new user", GameTime);
             this.dataService = new SqliteDataService("Boggle.db");
             this.dataService.AddNewPlayer(new Player { Name = "Spongebob" });
             this.dataService.AddNewPlayer(new Player { Name = "Patrick" });

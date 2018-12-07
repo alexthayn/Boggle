@@ -13,7 +13,10 @@ namespace Boggle.Shared.Models
     {
         public GameBoard GameBoard;
         private TimeSpan _remainingTime;
-        public TimeSpan RemainingTime { get => _remainingTime; set => Set(ref _remainingTime, value); }        
+        public TimeSpan RemainingTime { get => _remainingTime; set => Set(ref _remainingTime, value); }
+        private bool _isGameOver;
+        public bool IsGameOver { get => _isGameOver; set => Set(ref _isGameOver, value); }
+        public double LengthOfGameplay;
 
         private string[] _row1;
         public string[] Row1 { get => _row1; set => Set(ref _row1, value); }
@@ -38,13 +41,15 @@ namespace Boggle.Shared.Models
         private string _username;
         public string Username { get => _username; set => Set(ref _username, value); }
 
-        public BoggleGame(string username)
+        public BoggleGame(string username, double gameLength)
         {
             GameBoard = new GameBoard();
+            LengthOfGameplay = gameLength;
             ListOfGuesses = new ObservableCollection<PlayerGuess>();
             WordCount = 0;
             Score = 0;
             Username = username;
+            IsGameOver = false;
             StartGame();
         }
 
@@ -91,7 +96,7 @@ namespace Boggle.Shared.Models
         {
             GameBoard.ShakeDice();
             RemainingTime = new TimeSpan();
-            StartCountdown();
+            StartCountdown(LengthOfGameplay);
             Row1 = GameBoard.GameGrid[0];
             Row2 = GameBoard.GameGrid[1];
             Row3 = GameBoard.GameGrid[2];
@@ -109,9 +114,9 @@ namespace Boggle.Shared.Models
             return true;
         }
 
-        private async void StartCountdown()
+        private async void StartCountdown(double gameplayTime)
         {
-            DateTime startTime = DateTime.UtcNow, endTime = startTime.AddMinutes(3);
+            DateTime startTime = DateTime.UtcNow, endTime = startTime.AddMinutes(gameplayTime);
             TimeSpan remainingTime = endTime - startTime;
             TimeSpan interval = TimeSpan.FromMilliseconds(100);
 
@@ -127,7 +132,8 @@ namespace Boggle.Shared.Models
                 remainingTime = endTime - DateTime.UtcNow;
             }
 
-            RemainingTime = TimeSpan.Zero;             
+            RemainingTime = TimeSpan.Zero;
+            IsGameOver = true;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Boggle.Shared.Models;
 using NUnit.Framework;
+using System;
 
 namespace UnitTests.ModelTests
 {
@@ -11,7 +12,7 @@ namespace UnitTests.ModelTests
         [SetUp]
         public void Setup()
         {
-            BoggleGame = new BoggleGame("FakeGame");
+            BoggleGame = new BoggleGame("FakeGame", 0);
         }
 
         [TestCase("Hi", 0)]
@@ -219,6 +220,13 @@ namespace UnitTests.ModelTests
             string expectedDieValue = BoggleGame.GameBoard.GameGrid[3][3];
 
             Assert.AreEqual(expectedDieValue, BoggleGame.Row4[3]);
+        }
+
+        [Test]
+        public void TestThatGameOverFlagIsSetWhenTimeIsUp()
+        {
+            BoggleGame.RemainingTime = TimeSpan.Zero;          
+            Assert.IsTrue(BoggleGame.IsGameOver);
         }
     }
 }

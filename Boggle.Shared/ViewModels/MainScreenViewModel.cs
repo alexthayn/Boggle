@@ -61,7 +61,7 @@ namespace Boggle.Shared.ViewModels
             () =>
             {
                 mainView.PreviousViewModel = this;
-                mainView.TheGame = new BoggleGame(Username);
+                mainView.TheGame = new BoggleGame(Username, mainView.GameTime);
                 mainView.BoggleGameViewModel = new BoggleGameViewModel(mainView, dataService, Username);
                 mainView.ChildViewModel = mainView.BoggleGameViewModel;
             }));
