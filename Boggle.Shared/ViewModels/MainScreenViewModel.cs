@@ -18,6 +18,7 @@ namespace Boggle.Shared.ViewModels
         public MainScreenViewModel(MainViewModel mainViewModel, IDataService dataService)
         {
             mainView = mainViewModel;
+            GameTime = 3;
             this.dataService = dataService;
             TheGame = mainView.TheGame;
             Username = GetRandomUsername();
@@ -61,13 +62,17 @@ namespace Boggle.Shared.ViewModels
             () =>
             {
                 mainView.PreviousViewModel = this;
-                mainView.TheGame = new BoggleGame(Username, mainView.GameTime);
+                mainView.TheGame = new BoggleGame(Username);
                 mainView.BoggleGameViewModel = new BoggleGameViewModel(mainView, dataService, Username);
                 mainView.ChildViewModel = mainView.BoggleGameViewModel;
             }));
 
         private string _username;
         public string Username { get => _username; set => Set(ref _username, value); }
+
+
+        private double _gameTime;
+        public double GameTime { get => _gameTime; set => Set(ref _gameTime, value); }
 
         private List<Game> _gamesList;
         public List<Game> GamesList { get => _gamesList; set => Set(ref _gamesList, value); }

@@ -16,7 +16,7 @@ namespace Boggle.Shared.Models
         public TimeSpan RemainingTime { get => _remainingTime; set => Set(ref _remainingTime, value); }
         private bool _isGameOver;
         public bool IsGameOver { get => _isGameOver; set => Set(ref _isGameOver, value); }
-        public double LengthOfGameplay;
+        public const double GameTime = 3;
 
         private string[] _row1;
         public string[] Row1 { get => _row1; set => Set(ref _row1, value); }
@@ -41,10 +41,9 @@ namespace Boggle.Shared.Models
         private string _username;
         public string Username { get => _username; set => Set(ref _username, value); }
 
-        public BoggleGame(string username, double gameLength)
+        public BoggleGame(string username)
         {
             GameBoard = new GameBoard();
-            LengthOfGameplay = gameLength;
             ListOfGuesses = new ObservableCollection<PlayerGuess>();
             WordCount = 0;
             Score = 0;
@@ -96,7 +95,7 @@ namespace Boggle.Shared.Models
         {
             GameBoard.ShakeDice();
             RemainingTime = new TimeSpan();
-            StartCountdown(LengthOfGameplay);
+            StartCountdown(GameTime);
             Row1 = GameBoard.GameGrid[0];
             Row2 = GameBoard.GameGrid[1];
             Row3 = GameBoard.GameGrid[2];
@@ -110,7 +109,17 @@ namespace Boggle.Shared.Models
 
         private bool CheckPlayerGuessIsValid(string guess)
         {
-            /********************************************************/
+            //Check if word is in dictionary
+            NetSpell.SpellChecker.Dictionary.WordDictionary wordDictionary = new NetSpell.SpellChecker.Dictionary.WordDictionary();
+            wordDictionary.DictionaryFile = "./Dictionaries/en-US.dic";
+            NetSpell.SpellChecker.Spelling spelling = new NetSpell.SpellChecker.Spelling();
+
+            spelling.Dictionary = wordDictionary;
+            if (!spelling.TestWord(guess))
+            {
+                return false;
+            }
+            //Check if word in on game board
             return true;
         }
 
