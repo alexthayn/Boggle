@@ -40,6 +40,7 @@ namespace UnitTests.ViewModelTests
             Assert.AreEqual("Second",mainVM.BoggleGameViewModel.Username);
         }
 
+        /*
         [Test]
         public void TestSubmitGuessCommandClearsTextBox()
         {
@@ -56,5 +57,6 @@ namespace UnitTests.ViewModelTests
             var Game = mainVM.TheGame;
             Assert.AreEqual("cookies", Game.ListOfGuesses[0].Guess);
         }
+        */
     }
 }
