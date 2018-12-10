@@ -15,7 +15,7 @@ namespace Boggle.Shared.DataModels
             if(!_created)
             {
                 _created = true;
-                Database.EnsureDeleted();//this might give you some trouble...test & verify. :)
+                //Database.EnsureDeleted();//this might give you some trouble...test & verify. :)
                 Database.EnsureCreated();
             }
         }

@@ -24,6 +24,12 @@ namespace Boggle.Shared.ViewModels
             ListOfHighScores = dataService.GetPlayerScores().ToList();
         }
 
+
+        public void Update()
+        {
+            ListOfHighScores = dataService.GetPlayerScores().ToList();
+        }
+
         private RelayCommand _backToMain;
         public RelayCommand BackToMain => _backToMain ?? (_backToMain = new RelayCommand(
             () =>

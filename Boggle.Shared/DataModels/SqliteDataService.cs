@@ -17,15 +17,27 @@ namespace Boggle.Shared.DataModels
             this.dbPath = dbPath ?? throw new ArgumentNullException(nameof(dbPath));
             context = new BoggleDatabaseContext(dbPath);
         }
-   
-        public void AddNewGame(Game g)
+
+        public void AddNewGame(string username, int score)
+        {
+            int userId;
+            if (CheckIfUserExists(username) == false)
+            {
+                AddPlayer(new Player { Name = username });
+            }
+
+            userId = GetIdOfUsername(username);
+            AddNewGame(new Game { PlayerId = userId, Score = score });
+        }
+
+        private void AddNewGame(Game g)
         {
             context.Games.Add(g);
             context.SaveChanges();
         }
 
-        public void AddNewPlayer(Player p)
-        {
+        private void AddPlayer(Player p)
+        {    
             context.Players.Add(p);
             context.SaveChanges();
         }
@@ -43,6 +55,14 @@ namespace Boggle.Shared.DataModels
             List<Player> Players = new List<Player>();
             foreach (Player player in context.Players)
                 Players.Add(player);
+            return Players;
+        }
+
+        public IEnumerable<string> GetAllPlayerUsernames()
+        {
+            List<string> Players = new List<string>();
+            foreach (Player player in context.Players)
+                Players.Add(player.Name);
             return Players;
         }
 
@@ -65,6 +85,25 @@ namespace Boggle.Shared.DataModels
         {
             List<Player> Players = GetAllPlayers().ToList();
             return Players?.Find(p => p.Id == id).Name;
+        }
+
+        private int GetIdOfUsername(string username)
+        {
+            if (!CheckIfUserExists(username))
+            {
+                AddPlayer(new Player { Name = username });
+            }
+
+            List<Player> Players = GetAllPlayers().ToList();
+            return (int)Players?.Find(p => p.Name == username).Id;
+        }
+
+        private bool CheckIfUserExists(string username)
+        {
+            List<string> Players = GetAllPlayerUsernames().ToList();
+            if (Players.Contains(username))
+                return true;            
+            return false;
         }
     }
 }

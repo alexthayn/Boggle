@@ -61,19 +61,17 @@ namespace Boggle.Shared.Models
 
         public void SubmitGuess(string Word)
         {          
-           //Check if the user entered a duplicate guess
-           foreach(PlayerGuess g in ListOfGuesses)
-           {
+            //Check if the user entered a duplicate guess
+            foreach(PlayerGuess g in ListOfGuesses)
+            {
                 if (g.Guess == Word)
                     return;
-           }
-            //I need to handle characters other than alphabetical ones so they don't count towards the score            
-            bool isGuessValid = CheckPlayerGuessIsValidDictionaryWord(Word);
+            }
+           
             bool isGuessOnGameGrid = ListOfPossibleAnswers.Contains(Word.ToUpper());
-            ListOfGuesses.Add(new PlayerGuess() { Guess = Word, IsValidGuess = isGuessValid });
-
+            ListOfGuesses.Add(new PlayerGuess() { Guess = Word, IsValidGuess = isGuessOnGameGrid });
             
-            if (isGuessValid && isGuessOnGameGrid)
+            if (isGuessOnGameGrid)
             {
                 WordCount++;
                 int wordLength = Word.Count(w => char.IsLetter(w));
@@ -113,7 +111,7 @@ namespace Boggle.Shared.Models
         //Algorithm to find all possible answers in the game board
         private async void FindAllPossibleAnswers()
         {
-            var letters = string.Join("", Row1) + string.Join("", Row2) + string.Join("", Row3) + string.Join("", Row4);
+            var letters = GetApiArgs();
             var url = "http://api.codebox.org.uk/boggle/" + letters;
 
             using(var client = new HttpClient())
@@ -139,6 +137,53 @@ namespace Boggle.Shared.Models
                     FindAllPossibleAnswers();
                 }
             }
+        }
+
+        private string GetApiArgs()
+        {
+            var args = string.Join("", Row1) + string.Join("", Row2) + string.Join("", Row3) + string.Join("", Row4);
+            if(args.Contains("Q"))
+            {
+                var tempArgs = "";
+                foreach(string c in Row1)
+                {
+                    if (c.Equals("Qu"))
+                    {
+                        tempArgs += "Q";
+                    }
+                    else
+                        tempArgs += c;
+                }
+                foreach (string c in Row2)
+                {
+                    if (c.Equals("Qu"))
+                    {
+                        tempArgs += "Q";
+                    }
+                    else
+                        tempArgs += c;
+                }
+                foreach (string c in Row3)
+                {
+                    if (c.Equals("Qu"))
+                    {
+                        tempArgs += "Q";
+                    }
+                    else
+                        tempArgs += c;
+                }
+                foreach (string c in Row4)
+                {
+                    if (c.Equals("Qu"))
+                    {
+                        tempArgs += "Q";
+                    }
+                    else
+                        tempArgs += c;
+                }
+                args = tempArgs;
+            }
+            return args;
         }
 
         public int GetScore()
