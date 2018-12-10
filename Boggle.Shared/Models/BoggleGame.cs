@@ -60,7 +60,7 @@ namespace Boggle.Shared.Models
         }
 
         public void SubmitGuess(string Word)
-        {
+        {          
            //Check if the user entered a duplicate guess
            foreach(PlayerGuess g in ListOfGuesses)
            {
