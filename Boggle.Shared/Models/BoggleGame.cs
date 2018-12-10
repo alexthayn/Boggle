@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Boggle.Shared.Models
@@ -38,6 +40,9 @@ namespace Boggle.Shared.Models
         private ObservableCollection<PlayerGuess> _listOfGuesses;
         public ObservableCollection<PlayerGuess> ListOfGuesses { get => _listOfGuesses; set => Set(ref _listOfGuesses, value); }
 
+        private List<string> _listOfPossibleAnswers;
+        public List<string> ListOfPossibleAnswers { get => _listOfPossibleAnswers; set => Set(ref _listOfPossibleAnswers, value); }
+
         private string _username;
         public string Username { get => _username; set => Set(ref _username, value); }
 
@@ -50,6 +55,8 @@ namespace Boggle.Shared.Models
             Username = username;
             IsGameOver = false;
             StartGame();
+            ListOfPossibleAnswers = new List<string>();
+            FindAllPossibleAnswers();            
         }
 
         public void SubmitGuess(string Word)
@@ -61,11 +68,12 @@ namespace Boggle.Shared.Models
                     return;
            }
             //I need to handle characters other than alphabetical ones so they don't count towards the score            
-            bool isGuessValid = CheckPlayerGuessIsValid(Word);
+            bool isGuessValid = CheckPlayerGuessIsValidDictionaryWord(Word);
+            bool isGuessOnGameGrid = ListOfPossibleAnswers.Contains(Word.ToUpper());
             ListOfGuesses.Add(new PlayerGuess() { Guess = Word, IsValidGuess = isGuessValid });
 
             
-            if (isGuessValid)
+            if (isGuessValid && isGuessOnGameGrid)
             {
                 WordCount++;
                 int wordLength = Word.Count(w => char.IsLetter(w));
@@ -102,12 +110,43 @@ namespace Boggle.Shared.Models
             Row4 = GameBoard.GameGrid[3];            
         }
 
+        //Algorithm to find all possible answers in the game board
+        private async void FindAllPossibleAnswers()
+        {
+            var letters = string.Join("", Row1) + string.Join("", Row2) + string.Join("", Row3) + string.Join("", Row4);
+            var url = "http://api.codebox.org.uk/boggle/" + letters;
+
+            using(var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(url);
+
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = await response.Content.ReadAsStringAsync();
+                    result = result.Substring(2, result.Length - 2);
+                    List<string> resultsList = result.Split(',').ToList();
+                    foreach(string s in resultsList)
+                    {
+                        var cleanedString = Regex.Replace(s,"[\\\"]",string.Empty);
+                        cleanedString = cleanedString.Trim();
+                        ListOfPossibleAnswers.Add(cleanedString);
+                    }
+                }
+                else
+                {
+                    FindAllPossibleAnswers();
+                }
+            }
+        }
+
         public int GetScore()
         {
             return Score;
         }
 
-        private bool CheckPlayerGuessIsValid(string guess)
+        private bool CheckPlayerGuessIsValidDictionaryWord(string guess)
         {
             //Check if word is in dictionary
             NetSpell.SpellChecker.Dictionary.WordDictionary wordDictionary = new NetSpell.SpellChecker.Dictionary.WordDictionary();
