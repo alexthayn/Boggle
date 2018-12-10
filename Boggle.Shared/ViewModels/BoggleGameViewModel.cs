@@ -14,6 +14,21 @@ namespace Boggle.Shared.ViewModels
         private IBoggleGame _theGame;
         public IBoggleGame TheGame { get => _theGame; set => Set(ref _theGame, value); }
 
+        private bool _isGameOver;        
+        public bool IsGameOver
+        {
+            get => _isGameOver;
+            set
+            {
+                //If game is over add game to database
+                if (value == true)
+                {
+                    dataService.AddNewGame(UserGuess, TheGame.GetScore());
+                }
+                Set(ref _isGameOver, value);
+            }
+        }
+
         private string _userGuess;
         public string UserGuess { get => _userGuess; set => Set(ref _userGuess, value); }
 
@@ -72,6 +87,10 @@ namespace Boggle.Shared.ViewModels
             {
                 //Ask user the confirm
                 mainView.ChildViewModel = mainView.MainScreenViewModel;
+                if (TheGame.IsGameOver)
+                {
+                    dataService.AddNewGame(Username, TheGame.GetScore());
+                }
                 //clean up game here
             }));
 
@@ -84,15 +103,6 @@ namespace Boggle.Shared.ViewModels
                     TheGame.SubmitGuess(UserGuess.Trim());
                     UserGuess = "";
                 }
-            }));
-
-        //private RelayCommand _submitGuessCommand;
-        //public RelayCommand SubmitGuessCommand => _submitGuessCommand ?? (_submitGuessCommand = new RelayCommand(
-        //    () =>
-        //    {
-        //        //Ask user the confirm
-        //        if (UserGuess?.Equals("");
-        //        //clean up game here
-        //    }));
+            }));        
     }
 }

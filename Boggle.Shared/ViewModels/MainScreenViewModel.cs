@@ -54,6 +54,7 @@ namespace Boggle.Shared.ViewModels
             () =>
             {
                 mainView.PreviousViewModel = this;
+                mainView.HighScoresViewModel.Update();
                 mainView.ChildViewModel = mainView.HighScoresViewModel;
             }));
 

@@ -1,11 +1,12 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Boggle.Shared.Interfaces;
+using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Boggle.Shared.Models
 {
-    public class GameBoard : ObservableObject
+    public class GameBoard : ObservableObject, IGameBoard
     {
         private const int GRIDSIZE = 4;
         private Random rand = new Random();

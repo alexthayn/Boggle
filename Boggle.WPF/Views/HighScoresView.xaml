@@ -38,12 +38,12 @@
                                 <TextBlock Text="{Binding Username}"
                                                HorizontalAlignment="Center"
                                                Margin="0,2"
-                                           FontSize="36"
-                                           MinWidth="400"/>
+                                           FontSize="24"
+                                           MinWidth="600"/>
                                 <TextBlock Text="{Binding Score}"
                                                HorizontalAlignment="Center"
                                                Margin="0,2"
-                                           FontSize="36"/>
+                                           FontSize="24"/>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
