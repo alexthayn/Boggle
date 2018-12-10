@@ -15,7 +15,6 @@ namespace UnitTests.ModelTests
             BoggleGame = new BoggleGame("FakeGame");
         }
 
-        /*
         [TestCase("Hi", 0)]
         [TestCase("we", 0)]
         [TestCase(".-", 0)]
@@ -94,7 +93,6 @@ namespace UnitTests.ModelTests
             BoggleGame.SubmitGuess(word);
             Assert.AreEqual(expectedScore, BoggleGame.Score);
         }
-        */
 
         [Test]
         public void TestGameBoardRow0Column0IsSetCorrectly()
@@ -224,13 +222,11 @@ namespace UnitTests.ModelTests
             Assert.AreEqual(expectedDieValue, BoggleGame.Row4[3]);
         }
 
-        /*
         [Test]
         public void TestThatGameOverFlagIsSetWhenTimeIsUp()
         {
             BoggleGame.RemainingTime = TimeSpan.Zero;          
             Assert.IsTrue(BoggleGame.IsGameOver);
         }
-        */
     }
 }
