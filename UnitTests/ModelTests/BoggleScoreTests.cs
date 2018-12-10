@@ -31,68 +31,87 @@ namespace UnitTests.ModelTests
         [TestCase("Hi", 0)]
         [TestCase("we", 0)]
         [TestCase(".-", 0)]
+        [TestCase(" at ", 0)]
         public void Test2LetterScoreIsCalculatedCorrectly(string word, int expectedScore)
         {
-            gameVM.TheGame.SubmitGuess(word);
+            gameVM.UserGuess = word;
+            gameVM.SubmitGuessCommand.Execute(null);
             Assert.AreEqual(expectedScore, gameVM.TheGame.GetScore());
         }
 
-        [TestCase("pal", 1)]
+        [TestCase("pal ", 1)]
         [TestCase("ale", 1)]
         [TestCase("Hi!", 0)]
+        [TestCase("pig", 0)]        
         public void Test3LetterScoreIsCalculatedCorrectly(string word, int expectedScore)
         {
-            gameVM.TheGame.SubmitGuess(word);
+            gameVM.UserGuess = word;
+            gameVM.SubmitGuessCommand.Execute(null);
             Assert.AreEqual(expectedScore, gameVM.TheGame.GetScore());
         }
 
         [TestCase("sang", 1)]
-        [TestCase("line", 1)]
+        [TestCase(" line", 1)]
         [TestCase("lats", 1)]
+        [TestCase("bear ", 0)]
         public void Test4LetterScoreIsCalculatedCorrectly(string word, int expectedScore)
         {
-            gameVM.TheGame.SubmitGuess(word);
+            gameVM.UserGuess = word;
+            gameVM.SubmitGuessCommand.Execute(null);
             Assert.AreEqual(expectedScore, gameVM.TheGame.GetScore());
         }
 
         [TestCase("getas", 2)]
-        [TestCase("liter", 2)]
-
+        [TestCase("liter ", 2)]
+        [TestCase("start", 0)]
+        [TestCase("12345", 0)]
         public void Test5LetterScoreIsCalculatedCorrectly(string word, int expectedScore)
         {
-            gameVM.TheGame.SubmitGuess(word);
+            gameVM.UserGuess = word;
+            gameVM.SubmitGuessCommand.Execute(null);
             Assert.AreEqual(expectedScore, gameVM.TheGame.GetScore());
         }
 
         [TestCase("plaits", 3)]
-        [TestCase("tenail", 3)]
+        [TestCase("tenail    ", 3)]
+        [TestCase("sevens", 0)]
+        [TestCase("saints", 3)]
         public void Test6LettersScoreIsCalculatedCorrectly(string word, int expectedScore)
         {
-            gameVM.TheGame.SubmitGuess(word);
+            gameVM.UserGuess = word;
+            gameVM.SubmitGuessCommand.Execute(null);
             Assert.AreEqual(expectedScore, gameVM.TheGame.GetScore());
         }
 
         [TestCase("sternal", 4)]
         [TestCase("ALIENER", 4)]
+        [TestCase("discuss", 0)]
+        [TestCase("1234567", 0)]
         public void Test7LettersScoreIsCalculatedCorrectly(string word, int expectedScore)
         {
-            gameVM.TheGame.SubmitGuess(word);
+            gameVM.UserGuess = word;
+            gameVM.SubmitGuessCommand.Execute(null);
             Assert.AreEqual(expectedScore, gameVM.TheGame.GetScore());
         }
 
-        [TestCase("trailers", 11)]
+        [TestCase("   trailers", 11)]
         [TestCase("entrails", 11)]
+        [TestCase("solution", 0)]
         public void Test8LettersScoreIsCalulatedCorrectly(string word, int expectedScore)
         {
-            gameVM.TheGame.SubmitGuess(word);
+            gameVM.UserGuess = word;
+            gameVM.SubmitGuessCommand.Execute(null);
             Assert.AreEqual(expectedScore, gameVM.TheGame.GetScore());
         }
 
         [TestCase("elaterins", 11)]
         [TestCase("GRAPLINES", 11)]
+        [TestCase(" rEtaiLeRS ", 11)]
+        [TestCase("dictionaries", 0)]
         public void Test8PlusLettersScoreIsCalulatedCorrectly(string word, int expectedScore)
         {
-            gameVM.TheGame.SubmitGuess(word);
+            gameVM.UserGuess = word;
+            gameVM.SubmitGuessCommand.Execute(null);
             Assert.AreEqual(expectedScore, gameVM.TheGame.GetScore());
         }
 
@@ -104,8 +123,9 @@ namespace UnitTests.ModelTests
         [TestCase("Integrals", 11)]
         public void TestThatNoPointsAreAddedForDuplicateWords(string word, int expectedScore)
         {
-            gameVM.TheGame.SubmitGuess(word);
-            gameVM.TheGame.SubmitGuess(word);
+            gameVM.UserGuess = word;
+            gameVM.SubmitGuessCommand.Execute(null);
+            gameVM.SubmitGuessCommand.Execute(null);
             Assert.AreEqual(expectedScore, gameVM.TheGame.GetScore());
         }
 
