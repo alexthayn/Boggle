@@ -1,5 +1,4 @@
-﻿
-namespace Boggle.Shared.DataModels
+﻿namespace Boggle.Shared.DataModels
 {
     public class Game
     {

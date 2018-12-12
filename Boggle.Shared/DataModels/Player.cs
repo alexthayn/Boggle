@@ -1,7 +1,4 @@
-﻿
-using System.Collections.Generic;
-
-namespace Boggle.Shared.DataModels
+﻿namespace Boggle.Shared.DataModels
 {
     public class Player
     {

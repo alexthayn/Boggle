@@ -10,16 +10,16 @@ namespace Boggle.WPF.Converters
         {
             SolidColorBrush retColor = new SolidColorBrush
             {
-                Color = System.Windows.Media.Color.FromRgb(0, 0, 0)
+                Color = Color.FromRgb(0, 0, 0)
             };
 
             if ((bool)value)
             {
-                retColor.Color = System.Windows.Media.Color.FromRgb(11, 102, 35);
+                retColor.Color = Color.FromRgb(11, 102, 35);
             }
             else
             {
-                retColor.Color = System.Windows.Media.Color.FromRgb(234, 41, 57);
+                retColor.Color = Color.FromRgb(234, 41, 57);
             }
             return retColor;
         }

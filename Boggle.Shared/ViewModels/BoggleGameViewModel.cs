@@ -3,7 +3,6 @@ using Boggle.Shared.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
-using System.Collections.Generic;
 
 namespace Boggle.Shared.ViewModels
 {
