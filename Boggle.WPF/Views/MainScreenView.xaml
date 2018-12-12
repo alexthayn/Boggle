@@ -44,45 +44,19 @@
                     Margin="0,0,0,10"
                     HorizontalAlignment="Center">
             <TextBox BorderThickness="3"
-                        BorderBrush="Gray"
-                        MinWidth="265"
-                        MinHeight="25"                         
-                        VerticalAlignment="Center"
-                        Margin="0,0,10,0"
-                        Text="{Binding Username}"/>
-            <Button Content="{StaticResource RefreshIcon}"
-                    Command="{Binding RefreshUsernameCommand}"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Margin="1"/>
-        </StackPanel>
-        
-        <!--<StackPanel Orientation="Horizontal"
-                    Margin="100,0"
-                    MaxWidth="300">
-            <Label>Length Of Game</Label>
-            <ComboBox Width="50"
-                      Margin="10,0"
-                    Text="Length Of Game (min)"
-                    Background="White"
-                    BorderThickness="4"
+                     Name="username"
                     BorderBrush="Gray"
-                    SelectedItem="{Binding Path=GameTime}"                    >
-                <ComboBox.ItemsSource>
-                    <x:Array Type="{x:Type sys:Int32}">
-                        <sys:Int32>1</sys:Int32>
-                        <sys:Int32>2</sys:Int32>
-                        <sys:Int32>3</sys:Int32>
-                        <sys:Int32>4</sys:Int32>
-                        <sys:Int32>5</sys:Int32>
-                        <sys:Int32>6</sys:Int32>
-                        <sys:Int32>7</sys:Int32>
-                        <sys:Int32>8</sys:Int32>
-                    </x:Array>
-                </ComboBox.ItemsSource>
-            </ComboBox>
-                    
-        </StackPanel>-->
+                    MinWidth="265"
+                    MinHeight="25"                         
+                    VerticalAlignment="Center"
+                    Margin="0,0,10,0"
+                    Text="{Binding Username, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="{StaticResource RefreshIcon}"
+                Command="{Binding RefreshUsernameCommand}"
+                Background="Transparent"
+                BorderThickness="0"
+                Margin="1"/>
+        </StackPanel>
 
         <Button Content="New Game"
                 Command="{Binding  NewGameCommand}"
@@ -92,7 +66,21 @@
                 MinWidth="100"
                 Background="White"
                 BorderThickness="4"
-                BorderBrush="DodgerBlue"/>
+                BorderBrush="DodgerBlue">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="IsEnabled" Value="False"/>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=username}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="True"/>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+         </Button>
         <Button Content="High Scores"
                 Command="{Binding HighScoresCommand}"
                 Margin="10"

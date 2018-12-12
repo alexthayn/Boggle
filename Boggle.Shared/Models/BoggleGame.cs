@@ -18,7 +18,7 @@ namespace Boggle.Shared.Models
         public TimeSpan RemainingTime { get => _remainingTime; set => Set(ref _remainingTime, value); }
         private bool _isGameOver;
         public bool IsGameOver { get => _isGameOver; set => Set(ref _isGameOver, value); }
-        public const double GameTime = .02;
+        public const double GameTime = 3;
 
         private string[] _row1;
         public string[] Row1 { get => _row1; set => Set(ref _row1, value); }

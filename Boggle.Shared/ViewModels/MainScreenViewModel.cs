@@ -5,11 +5,12 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Boggle.Shared.ViewModels
 {
-    public class MainScreenViewModel : ViewModelBase
+    public class MainScreenViewModel : ViewModelBase , IDataErrorInfo
     {
         private readonly IBoggleGame TheGame;
         private readonly MainViewModel mainView;
@@ -80,6 +81,19 @@ namespace Boggle.Shared.ViewModels
 
         private List<Player> _players;
         public List<Player> Players { get => _players; set => Set(ref _players, value); }
+
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName]
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Username))
+                    return "Username field cannot be empty";
+                else
+                    return string.Empty;
+            }
+        }
 
         //Just a method to set the username randomly if the user doesn't enter one
         public string GetRandomUsername()
