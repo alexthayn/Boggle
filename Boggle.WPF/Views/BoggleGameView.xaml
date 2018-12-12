@@ -29,6 +29,7 @@
         </Style>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
         <converters:InvertedBooleanToVisibilityConverter x:Key="InvertedBoolToVis"/>
+        <converters:BoolToColorConverter x:Key="BoolToColor"/>
     </UserControl.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top"
@@ -133,7 +134,8 @@
                 <ItemsControl ItemsSource="{Binding TheGame.ListOfGuesses}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Guess}"                                      
+                            <TextBlock Text="{Binding Guess}" 
+                                       Foreground="{Binding IsValidGuess, Converter={StaticResource BoolToColor}}"
                                        HorizontalAlignment="Center"
                                        Margin="0,2"/>
                         </DataTemplate>

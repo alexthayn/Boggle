@@ -161,6 +161,7 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="Converters\BoolToColorConverter.cs" />
     <Compile Include="Converters\InvertedBooleanToVisibilityConverter.cs" />
     <Compile Include="Extensions\ScrollViewerExtensions.cs" />
     <Compile Include="Views\BoggleGameView.xaml.cs">
