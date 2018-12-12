@@ -61,5 +61,13 @@ namespace UnitTests.ViewModelTests
 
             Assert.AreEqual(mvm.HowToPlayViewModel, mvm.ChildViewModel);
         }
+
+        [Test] 
+        public void TestAddHighScoreCommandNavigation()
+        {
+            bgvm.AddScoreCommand.Execute(null);
+
+            Assert.AreEqual(mvm.HighScoresViewModel, mvm.ChildViewModel);
+        }
     }
 }

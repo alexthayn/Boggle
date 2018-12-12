@@ -123,6 +123,7 @@ namespace Boggle.Shared.ViewModels
             {
                 dataService.AddNewGame(Username, TheGame.GetScore());
                 mainView.HighScoresViewModel.Update();
+                mainView.PreviousViewModel = this;
                 mainView.ChildViewModel = mainView.HighScoresViewModel;
             }));
     }

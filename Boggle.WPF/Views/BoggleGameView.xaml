@@ -135,8 +135,8 @@
             <ScrollViewer Grid.Row="1"
                           Grid.RowSpan="4"
                           extensionProperties:ScrollViewerExtensions.AlwaysScrollToEnd="True"
+                          Margin="10"    
                           Background="#d1e8ff"
-                          Margin="10"          
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled">
                 <ItemsControl ItemsSource="{Binding TheGame.ListOfGuesses}">
@@ -145,7 +145,8 @@
                             <TextBlock Text="{Binding Guess}" 
                                        Foreground="{Binding IsValidGuess, Converter={StaticResource BoolToColor}}"
                                        HorizontalAlignment="Center"
-                                       Margin="0,2"/>
+                                       Margin="0,2"
+                                       FontSize="24"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
