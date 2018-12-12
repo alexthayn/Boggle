@@ -296,16 +296,27 @@
                 </Border>
             </Grid>
 
-            <Grid Visibility="{Binding Path=IsGameOver, Converter={StaticResource BoolToVis}}"
-                  DataContext="{Binding TheGame}"
+            <Grid Visibility="{Binding Path=TheGame.IsGameOver, Converter={StaticResource BoolToVis}}"
                   Grid.Column="2"
                   Grid.RowSpan="3"
                   Grid.Row="2">
-                <TextBlock Text="Time's Up!"
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Time's Up!"                           
                            Foreground="DodgerBlue"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            FontSize="100"/>
+                <Button Grid.Row="2"                        
+                        Content="Add Game To High Scores"
+                        Command="{Binding AddScoreCommand}"
+                        Background="White"
+                        BorderBrush="DodgerBlue"
+                        BorderThickness="4"
+                        Width="200"
+                        Margin="20,10"/>
             </Grid>
         </Grid>
     </DockPanel>

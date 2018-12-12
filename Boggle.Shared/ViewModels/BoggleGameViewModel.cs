@@ -116,5 +116,14 @@ namespace Boggle.Shared.ViewModels
                     hintNumber++;
                 }
             }));
+
+        private RelayCommand _addScoreCommand;
+        public RelayCommand AddScoreCommand => _addScoreCommand ?? (_addScoreCommand = new RelayCommand(
+            () =>
+            {
+                dataService.AddNewGame(Username, TheGame.GetScore());
+                mainView.HighScoresViewModel.Update();
+                mainView.ChildViewModel = mainView.HighScoresViewModel;
+            }));
     }
 }
