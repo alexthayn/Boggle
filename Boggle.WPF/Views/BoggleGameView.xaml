@@ -91,6 +91,7 @@
                         Margin="20,5"/>
                 <Button Content="Give me a Hint"
                         Command="{Binding GiveHintCommand}"
+                        Visibility="{Binding TheGame.IsGameOver, Converter={StaticResource InvertedBoolToVis}}"
                         Background="White"
                         BorderBrush="DodgerBlue"
                         BorderThickness="4"
