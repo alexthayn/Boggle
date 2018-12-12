@@ -12,7 +12,7 @@ namespace UnitTests.ModelTests
         [SetUp]
         public void Setup()
         {
-            BoggleGame = new BoggleGame("FakeGame");
+            BoggleGame = new BoggleGame("FakeGame", 0);
         }
         
         [Test]

@@ -16,9 +16,12 @@ namespace Boggle.Shared.Models
         public GameBoard GameBoard;
         private TimeSpan _remainingTime;
         public TimeSpan RemainingTime { get => _remainingTime; set => Set(ref _remainingTime, value); }
+
         private bool _isGameOver;
         public bool IsGameOver { get => _isGameOver; set => Set(ref _isGameOver, value); }
-        public const double GameTime = 3;
+
+        private double _gameTime;
+        public double GameTime { get => _gameTime; set => Set(ref _gameTime, value); }
 
         private string[] _row1;
         public string[] Row1 { get => _row1; set => Set(ref _row1, value); }
@@ -46,9 +49,10 @@ namespace Boggle.Shared.Models
         private string _username;
         public string Username { get => _username; set => Set(ref _username, value); }
 
-        public BoggleGame(string username)
+        public BoggleGame(string username, double gameLength)
         {
             GameBoard = new GameBoard();
+            GameTime = gameLength;
             ListOfGuesses = new ObservableCollection<PlayerGuess>();
             WordCount = 0;
             Score = 0;

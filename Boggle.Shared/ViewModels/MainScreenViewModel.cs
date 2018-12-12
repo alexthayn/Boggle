@@ -16,10 +16,20 @@ namespace Boggle.Shared.ViewModels
         private readonly MainViewModel mainView;
         private readonly IDataService dataService;
 
+        public List<string> GameLengthList => new List<string>() { "3 Min", "5 Min", "10 Min" };
+
+        public string ThreeMinutes => "3 Min";
+        public string FiveMinutes => "5 Min";
+        public string TenMinutes => "10 Min";
+
+        public string _gameLengthString;
+        public string GameLengthString { get => _gameLengthString; set => Set(ref _gameLengthString, value); }
+
         public MainScreenViewModel(MainViewModel mainViewModel, IDataService dataService)
         {
             mainView = mainViewModel;
             GameTime = 3;
+            GameLengthString = ThreeMinutes;
             this.dataService = dataService;
             TheGame = mainView.TheGame;
             Username = GetRandomUsername();
@@ -64,14 +74,13 @@ namespace Boggle.Shared.ViewModels
             () =>
             {
                 mainView.PreviousViewModel = this;
-                mainView.TheGame = new BoggleGame(Username);
+                mainView.TheGame = new BoggleGame(Username, GetGameLength());
                 mainView.BoggleGameViewModel = new BoggleGameViewModel(mainView, dataService, Username);
                 mainView.ChildViewModel = mainView.BoggleGameViewModel;
             }));
 
         private string _username;
         public string Username { get => _username; set => Set(ref _username, value); }
-
 
         private double _gameTime;
         public double GameTime { get => _gameTime; set => Set(ref _gameTime, value); }
@@ -92,6 +101,21 @@ namespace Boggle.Shared.ViewModels
                     return "Username field cannot be empty";
                 else
                     return string.Empty;
+            }
+        }
+
+        public double GetGameLength()
+        {
+            switch (GameLengthString)
+            {
+                case "3 Min":
+                    return 3;
+                case "5 Min":
+                    return 5;
+                case "10 Min":
+                    return 10;
+                default:
+                    return 3;
             }
         }
 

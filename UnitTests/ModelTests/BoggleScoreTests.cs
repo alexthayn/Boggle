@@ -22,7 +22,7 @@ namespace UnitTests.ModelTests
             string[] r3 = new string[4] { "L", "I", "N", "E" };
             string[] r4 = new string[4] { "S", "E", "R", "S" };
             string[][] grid = new string[4][] { r1, r2, r3, r4 };
-            BoggleGame = new BoggleGame("FakeUser");
+            BoggleGame = new BoggleGame("FakeUser", 0);
             BoggleGame.GameBoard.GameGrid = grid;
             gameVM.TheGame = BoggleGame;
             BoggleGame.ListOfPossibleAnswers = possibleGuesses;

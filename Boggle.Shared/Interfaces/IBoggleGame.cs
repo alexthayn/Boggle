@@ -8,6 +8,7 @@ namespace Boggle.Shared.Interfaces
     {
         ObservableCollection<PlayerGuess> ListOfGuesses { get; }
         List<string> ListOfPossibleAnswers { get; set; }
+        double GameTime { get; set; }
         bool IsGameOver { get; set; }
         string[] Row1 { get; set; }
         string[] Row2 { get; set; }

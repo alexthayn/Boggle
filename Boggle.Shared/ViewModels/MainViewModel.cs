@@ -39,7 +39,7 @@ namespace Boggle.Shared.ViewModels
 
         public MainViewModel()
         {
-            TheGame = new BoggleGame("new user");
+            TheGame = new BoggleGame("new user", 3);
             dataService = new SqliteDataService("Boggle.db");
             MainScreenViewModel = new MainScreenViewModel(this, dataService);
             HowToPlayViewModel = new HowToPlayViewModel(this);
