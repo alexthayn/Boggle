@@ -89,6 +89,13 @@
                         BorderThickness="4"
                         Width="100"
                         Margin="20,5"/>
+                <Button Content="Give me a Hint"
+                        Command="{Binding GiveHintCommand}"
+                        Background="White"
+                        BorderBrush="DodgerBlue"
+                        BorderThickness="4"
+                        Width="100"
+                        Margin="20,5"/>                
             </StackPanel>
 
             <StackPanel Grid.Row="1"

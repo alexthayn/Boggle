@@ -13,6 +13,7 @@ namespace Boggle.Shared.ViewModels
         private readonly IDataService dataService;
         private IBoggleGame _theGame;
         public IBoggleGame TheGame { get => _theGame; set => Set(ref _theGame, value); }
+        private int hintNumber = 0;
 
         private bool _isGameOver;        
         public bool IsGameOver
@@ -103,6 +104,17 @@ namespace Boggle.Shared.ViewModels
                     TheGame.SubmitGuess(UserGuess.Trim());
                     UserGuess = "";
                 }
-            }));        
+            }));
+
+        private RelayCommand _giveHintCommand;
+        public RelayCommand GiveHintCommand => _giveHintCommand ?? (_giveHintCommand = new RelayCommand(
+            () =>
+            {
+                if (hintNumber < TheGame.ListOfPossibleAnswers.Count)
+                {
+                    UserGuess = TheGame.ListOfPossibleAnswers[hintNumber].ToLower();
+                    hintNumber++;
+                }
+            }));
     }
 }

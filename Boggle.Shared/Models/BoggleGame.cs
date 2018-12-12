@@ -64,12 +64,12 @@ namespace Boggle.Shared.Models
             //Check if the user entered a duplicate guess
             foreach(PlayerGuess g in ListOfGuesses)
             {
-                if (g.Guess == Word)
+                if (g.Guess == Word.ToLower())
                     return;
             }
            
             bool isGuessOnGameGrid = ListOfPossibleAnswers.Contains(Word.ToUpper());
-            ListOfGuesses.Add(new PlayerGuess() { Guess = Word, IsValidGuess = isGuessOnGameGrid });
+            ListOfGuesses.Add(new PlayerGuess() { Guess = Word.ToLower(), IsValidGuess = isGuessOnGameGrid });
             
             if (isGuessOnGameGrid)
             {
