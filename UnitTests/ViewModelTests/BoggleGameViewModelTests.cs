@@ -1,62 +1,71 @@
-﻿using Boggle.Shared.ViewModels;
+﻿using Boggle.Shared.DataModels;
+using Boggle.Shared.ViewModels;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace UnitTests.ViewModelTests
 {
     [TestFixture]
     public class BoggleGameViewModelTests
     {
-        public MainViewModel mainVM;
+        public BoggleGameViewModel vm;
 
         [SetUp]
         public void Setup()
         {
-            mainVM = new MainViewModel();       
+            vm = new BoggleGameViewModel(new MainViewModel(), new SqliteDataService("Test.db"));
+            vm.TheGame.ListOfPossibleAnswers = new List<string>() { "ANSWER" };
         }
 
         [Test]
         public void TestUsernameIsPassedToBoggleGameViewModel()
         {
-            mainVM.MainScreenViewModel.Username = "Pancake";
-            mainVM.MainScreenViewModel.NewGameCommand.Execute(null);
+            vm.Username = "Pancake";
+            vm.NewGameCommand.Execute(null);
 
-            Assert.AreEqual("Pancake",mainVM.BoggleGameViewModel.Username);
+            Assert.AreEqual("Pancake",vm.Username);
         }
 
         [Test]
         public void TestUsernameIsResetWhenUserChangesNameAndStartsNewGame()
         {
-            mainVM.MainScreenViewModel.Username = "First";
+            vm.Username = "First";
 
             //Start Game
-            mainVM.MainScreenViewModel.NewGameCommand.Execute(null);
+            vm.NewGameCommand.Execute(null);
             //End Game
-            mainVM.BoggleGameViewModel.EndGameCommand.Execute(null);
+            vm.EndGameCommand.Execute(null);
             //Reset username
-            mainVM.MainScreenViewModel.Username = "Second";
+            vm.Username = "Second";
             //Start game
-            mainVM.MainScreenViewModel.NewGameCommand.Execute(null);
+            vm.NewGameCommand.Execute(null);
 
-            Assert.AreEqual("Second",mainVM.BoggleGameViewModel.Username);
+            Assert.AreEqual("Second",vm.Username);
         }
-
-        /*
+        
         [Test]
         public void TestSubmitGuessCommandClearsTextBox()
         {
-            mainVM.BoggleGameViewModel.UserGuess = "MyGuess";
-            mainVM.BoggleGameViewModel.SubmitGuessCommand.Execute(null);
-            Assert.AreEqual("", mainVM.BoggleGameViewModel.UserGuess);
+            vm.UserGuess = "MyGuess";
+            vm.SubmitGuessCommand.Execute(null);
+            Assert.AreEqual("", vm.UserGuess);
         }
 
         [Test]
         public void TestSubmitGuessCommandAddGuessToListOfGuesses()
         {
-            mainVM.BoggleGameViewModel.UserGuess = "cookies";
-            mainVM.BoggleGameViewModel.SubmitGuessCommand.Execute(null);
-            var Game = mainVM.TheGame;
+            vm.UserGuess = "cookies";
+            vm.SubmitGuessCommand.Execute(null);
+            var Game = vm.TheGame;
             Assert.AreEqual("cookies", Game.ListOfGuesses[0].Guess);
         }
-        */
+
+        [Test]
+        public void TestGiveHintCommandAddsAWordToTheUserGuess()
+        {
+            vm.UserGuess = "Spongebob";
+            vm.GiveHintCommand.Execute(null);
+            Assert.AreEqual(vm.TheGame.ListOfPossibleAnswers[0], vm.UserGuess.ToUpper());
+        }
     }
 }
